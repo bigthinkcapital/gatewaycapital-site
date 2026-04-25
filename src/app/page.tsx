@@ -29,7 +29,7 @@ const STEPS = [
 
 const REVIEWS = [
   { text: 'Quick and seamless from start to finish. Jesse listened to exactly what we needed and found the perfect plan.', author: 'Maria T.', biz: 'Restaurant Owner, FL' },
-  { text: 'Within 32 hours we were approved and funded. I truly believe that was because of our agent\'s dedication.', author: 'David K.', biz: 'IT Services, TX' },
+  { text: "Within 32 hours we were approved and funded. I truly believe that was because of our agent's dedication.", author: 'David K.', biz: 'IT Services, TX' },
   { text: 'Fast, efficient, money deposited faster than expected. Will definitely be back for future funding.', author: 'Alex R.', biz: 'Retail Business, NY' },
   { text: 'Five days from first call to funding. Helpful and quick the whole way through. Highly recommend.', author: 'Carlos M.', biz: 'Construction, CA' },
   { text: 'Got us the loan expeditiously and smoothly. Now our growth has no ceiling.', author: 'Jennifer W.', biz: 'E-commerce, GA' },
@@ -41,36 +41,54 @@ export default function HomePage() {
       <SmartBar />
       <Nav />
       <MobileCTA />
-      <main className="pt-9">
 
-        {/* HERO */}
-        <section className="relative min-h-screen flex items-center bg-gradient-to-br from-slate-50 via-blue-50/40 to-white overflow-hidden pt-16 pb-24">
+      {/* pt-[100px] = 36px SmartBar + 64px Nav */}
+      <main className="pt-[100px]">
+
+        {/* ── HERO ── */}
+        <section className="relative min-h-[calc(100vh-100px)] flex items-center bg-gradient-to-br from-slate-50 via-blue-50/40 to-white overflow-hidden pb-24 pt-12">
           <div className="absolute inset-0 pointer-events-none">
             <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-blue-600/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/3" />
             <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-blue-400/5 rounded-full blur-2xl translate-y-1/2 -translate-x-1/4" />
-            <div className="absolute inset-0 opacity-[0.025]" style={{ backgroundImage: 'radial-gradient(circle, #1B4FD8 1px, transparent 1px)', backgroundSize: '32px 32px' }} />
+            <div
+              className="absolute inset-0 opacity-[0.025]"
+              style={{ backgroundImage: 'radial-gradient(circle, #1B4FD8 1px, transparent 1px)', backgroundSize: '32px 32px' }}
+            />
           </div>
 
           <div className="relative max-w-6xl mx-auto px-5 grid md:grid-cols-2 gap-12 items-center w-full">
+            {/* Left */}
             <div>
               <div className="inline-flex items-center gap-2 bg-white border border-blue-100 rounded-full px-3 py-1.5 mb-6 shadow-sm">
                 <span className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse" />
                 <span className="text-xs font-semibold text-slate-700">Funding decisions in under 24 hours</span>
               </div>
+
               <h1 className="font-display font-extrabold text-4xl sm:text-5xl lg:text-[3.5rem] text-slate-900 leading-[1.05] tracking-tight mb-5">
-                Your Gateway to{' '}<span className="text-blue-600">Business</span>{' '}Funding
+                Your Gateway to{' '}
+                <span className="text-blue-600">Business</span>{' '}
+                Funding
               </h1>
+
               <p className="text-lg text-slate-500 leading-relaxed mb-8 max-w-lg">
                 Access up to <strong className="text-slate-700">$5 million</strong> across 6+ funding products — matched by real specialists and funded in as little as 24 hours.
               </p>
+
               <div className="flex flex-col sm:flex-row gap-3 mb-8">
-                <Link href="/apply" className="inline-flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-bold text-base px-7 py-4 rounded-xl transition-all hover:shadow-xl hover:shadow-blue-600/30 hover:-translate-y-0.5">
+                <Link
+                  href="/apply"
+                  className="inline-flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-bold text-base px-7 py-4 rounded-xl transition-all hover:shadow-xl hover:shadow-blue-600/30 hover:-translate-y-0.5"
+                >
                   Get Funded Today →
                 </Link>
-                <Link href="#how-it-works" className="inline-flex items-center justify-center gap-2 bg-white hover:bg-slate-50 text-slate-700 font-semibold text-base px-7 py-4 rounded-xl border border-slate-200 transition-all hover:border-blue-200">
+                <Link
+                  href="#how-it-works"
+                  className="inline-flex items-center justify-center gap-2 bg-white hover:bg-slate-50 text-slate-700 font-semibold text-base px-7 py-4 rounded-xl border border-slate-200 transition-all hover:border-blue-200"
+                >
                   See How It Works
                 </Link>
               </div>
+
               <div className="flex flex-wrap gap-x-5 gap-y-2">
                 {['⭐ 4.8 Trustpilot', '✅ BBB Accredited', '🔒 No Hard Credit Pull', '⚡ Same-Day Funding'].map(t => (
                   <span key={t} className="text-xs font-medium text-slate-500">{t}</span>
@@ -78,6 +96,7 @@ export default function HomePage() {
               </div>
             </div>
 
+            {/* Right — card */}
             <div className="relative">
               <div className="absolute -top-4 right-0 bg-white rounded-2xl shadow-lg border border-slate-100 px-4 py-3 flex items-center gap-3 z-10">
                 <span className="text-2xl">⚡</span>
@@ -86,6 +105,7 @@ export default function HomePage() {
                   <div className="text-xs text-slate-400">For qualifying businesses</div>
                 </div>
               </div>
+
               <div className="bg-white rounded-3xl border border-slate-100 shadow-2xl shadow-blue-600/10 p-7 relative overflow-hidden">
                 <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-blue-600 to-blue-400 rounded-t-3xl" />
                 <div className="text-xs font-bold tracking-widest uppercase text-slate-400 mb-1">Funding Preview</div>
@@ -109,7 +129,10 @@ export default function HomePage() {
                     <div className="h-full w-[87%] bg-gradient-to-r from-blue-600 to-blue-400 rounded-full" />
                   </div>
                 </div>
-                <Link href="/apply" className="flex items-center justify-between bg-blue-600 hover:bg-blue-700 rounded-xl px-5 py-3.5 transition-all group">
+                <Link
+                  href="/apply"
+                  className="flex items-center justify-between bg-blue-600 hover:bg-blue-700 rounded-xl px-5 py-3.5 transition-all group"
+                >
                   <div>
                     <div className="text-sm font-bold text-white">Start Your Application</div>
                     <div className="text-xs text-blue-200">Free · No hard credit pull</div>
@@ -117,6 +140,7 @@ export default function HomePage() {
                   <span className="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center text-white group-hover:translate-x-1 transition-transform">→</span>
                 </Link>
               </div>
+
               <div className="absolute -bottom-4 left-0 bg-white rounded-2xl shadow-lg border border-slate-100 px-4 py-3 flex items-center gap-3 z-10">
                 <span className="text-2xl">🏆</span>
                 <div>
@@ -128,9 +152,10 @@ export default function HomePage() {
           </div>
         </section>
 
+        {/* ── STATS ── */}
         <StatsSection />
 
-        {/* PRODUCTS */}
+        {/* ── PRODUCTS ── */}
         <section id="products" className="py-20 bg-white">
           <div className="max-w-6xl mx-auto px-5">
             <div className="text-center mb-14">
@@ -142,9 +167,12 @@ export default function HomePage() {
               </h2>
               <p className="text-slate-500 max-w-xl mx-auto">One application. Multiple lenders. Matched to the best product for your situation.</p>
             </div>
+
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 mb-10">
               {PRODUCTS.map(p => (
-                <Link key={p.name} href="/apply" className="group bg-white border border-slate-200 rounded-2xl p-6 hover:border-blue-200 hover:shadow-lg hover:shadow-blue-600/8 transition-all hover:-translate-y-1">
+                <Link key={p.name} href="/apply"
+                  className="group bg-white border border-slate-200 rounded-2xl p-6 hover:border-blue-200 hover:shadow-lg hover:shadow-blue-600/8 transition-all hover:-translate-y-1"
+                >
                   <div className="w-12 h-12 bg-blue-50 rounded-xl flex items-center justify-center text-2xl mb-4 group-hover:bg-blue-100 transition-colors">{p.icon}</div>
                   <h3 className="font-display font-bold text-lg text-slate-900 mb-2">{p.name}</h3>
                   <p className="text-sm text-slate-500 leading-relaxed mb-4">{p.desc}</p>
@@ -155,6 +183,7 @@ export default function HomePage() {
                 </Link>
               ))}
             </div>
+
             <div className="bg-blue-600 rounded-2xl p-7 flex flex-col sm:flex-row items-center justify-between gap-5">
               <div>
                 <div className="font-display font-bold text-xl text-white mb-1">Not sure which product fits?</div>
@@ -167,7 +196,7 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* HOW IT WORKS */}
+        {/* ── HOW IT WORKS ── */}
         <section id="how-it-works" className="py-20 bg-slate-50">
           <div className="max-w-6xl mx-auto px-5">
             <div className="text-center mb-14">
@@ -181,7 +210,9 @@ export default function HomePage() {
             <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5 mb-12">
               {STEPS.map((step, i) => (
                 <div key={step.num} className="relative bg-white rounded-2xl p-6 border border-slate-200">
-                  {i < STEPS.length - 1 && <div className="hidden lg:block absolute top-10 right-0 translate-x-1/2 z-10 text-slate-300 text-lg font-bold">→</div>}
+                  {i < STEPS.length - 1 && (
+                    <div className="hidden lg:block absolute top-10 right-0 translate-x-1/2 z-10 text-slate-300 text-lg font-bold">→</div>
+                  )}
                   <div className="w-10 h-10 bg-blue-600 rounded-xl flex items-center justify-center text-white font-display font-bold text-sm mb-4">{step.num}</div>
                   <h3 className="font-display font-bold text-base text-slate-900 mb-2">{step.title}</h3>
                   <p className="text-sm text-slate-500 leading-relaxed">{step.desc}</p>
@@ -197,7 +228,7 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* SOCIAL PROOF */}
+        {/* ── SOCIAL PROOF ── */}
         <section id="why-us" className="py-20 bg-white">
           <div className="max-w-6xl mx-auto px-5">
             <div className="text-center mb-14">
@@ -213,6 +244,7 @@ export default function HomePage() {
                 <span className="text-slate-400 text-sm">· 3,200+ verified reviews</span>
               </div>
             </div>
+
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 mb-12">
               {REVIEWS.map(r => (
                 <div key={r.author} className="bg-slate-50 border border-slate-200 rounded-2xl p-6 hover:shadow-md transition-shadow">
@@ -223,6 +255,7 @@ export default function HomePage() {
                 </div>
               ))}
             </div>
+
             <div className="bg-slate-50 border border-slate-200 rounded-2xl px-6 py-5 flex flex-wrap items-center justify-around gap-4">
               {[
                 { icon: '🏆', name: 'Fortune Best Workplaces', sub: 'Financial Services · #30' },
@@ -242,7 +275,7 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* FINAL CTA */}
+        {/* ── FINAL CTA ── */}
         <section className="py-20 bg-blue-600 relative overflow-hidden">
           <div className="absolute inset-0 pointer-events-none">
             <div className="absolute top-0 right-0 w-96 h-96 bg-white/5 rounded-full -translate-y-1/2 translate-x-1/2" />
