@@ -42,7 +42,6 @@ export default function HomePage() {
       <Nav />
       <MobileCTA />
 
-      {/* pt-[100px] = 36px SmartBar + 64px Nav */}
       <main className="pt-[100px]">
 
         {/* ── HERO ── */}
@@ -113,7 +112,12 @@ export default function HomePage() {
                   $<span className="text-blue-600">250,000</span>
                 </div>
                 <div className="grid grid-cols-2 gap-3 mb-5">
-                  {[{ val: '24hr', label: 'Avg. Funding' }, { val: '6+', label: 'Products' }, { val: '3,200+', label: 'Funded' }, { val: '$500M+', label: 'Deployed' }].map(s => (
+                  {[
+                    { val: '24hr', label: 'Avg. Funding' },
+                    { val: '6+', label: 'Products' },
+                    { val: '3,200+', label: 'Funded' },
+                    { val: '$500M+', label: 'Deployed' },
+                  ].map(s => (
                     <div key={s.label} className="bg-blue-50 rounded-xl p-3">
                       <div className="font-display font-bold text-xl text-blue-600 leading-none mb-1">{s.val}</div>
                       <div className="text-xs text-slate-500">{s.label}</div>
@@ -142,10 +146,10 @@ export default function HomePage() {
               </div>
 
               <div className="absolute -bottom-4 left-0 bg-white rounded-2xl shadow-lg border border-slate-100 px-4 py-3 flex items-center gap-3 z-10">
-                <span className="text-2xl">🏆</span>
+                <span className="text-2xl">⭐</span>
                 <div>
-                  <div className="text-xs font-bold text-slate-800">Fortune Best Workplace</div>
-                  <div className="text-xs text-slate-400">#19 Nationally · 2025</div>
+                  <div className="text-xs font-bold text-slate-800">4.8 Trustpilot Rating</div>
+                  <div className="text-xs text-slate-400">3,200+ verified reviews</div>
                 </div>
               </div>
             </div>
@@ -258,10 +262,10 @@ export default function HomePage() {
 
             <div className="bg-slate-50 border border-slate-200 rounded-2xl px-6 py-5 flex flex-wrap items-center justify-around gap-4">
               {[
-                { icon: '🏆', name: 'Fortune Best Workplaces', sub: 'Financial Services · #30' },
-                { icon: '⭐', name: '4.8 Trustpilot', sub: '3,200+ Reviews' },
+                { icon: '⭐', name: '4.8 Trustpilot Rating', sub: '3,200+ Verified Reviews' },
                 { icon: '✅', name: 'BBB Accredited', sub: 'Standards for Trust' },
-                { icon: '🔒', name: 'Bank-Level Security', sub: '256-bit SSL' },
+                { icon: '🔒', name: 'Bank-Level Security', sub: '256-bit SSL Encryption' },
+                { icon: '⚡', name: 'Same-Day Funding', sub: 'For qualifying businesses' },
               ].map(a => (
                 <div key={a.name} className="flex items-center gap-3">
                   <span className="text-2xl">{a.icon}</span>
