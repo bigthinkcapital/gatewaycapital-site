@@ -63,7 +63,7 @@ const SERVICE_DATA: Record<string, {
       { title: 'Real Estate Purchase', desc: 'Buy the commercial property your business operates in — or invest in commercial real estate.', example: 'A dental practice borrows $1.2M to purchase the building they\'ve been renting for 6 years.' },
       { title: 'Equipment Acquisition', desc: 'Purchase major equipment with long-term financing at the best available rates.', example: 'A manufacturer borrows $800,000 to purchase a CNC machine and upgrade their production line.' },
       { title: 'Working Capital', desc: 'Fund ongoing operations, payroll, marketing, or inventory.', example: 'A staffing agency uses a $200,000 SBA loan to bridge payroll while waiting on client payments.' },
-      { title: 'Debt Refinancing', desc: 'Consolidate higher-rate existing debt into a single low-rate SBA loan.', example: 'A logistics company refinances $500K in merchant cash advances into an SBA term loan, cutting their effective rate by 60%.' },
+      { title: 'Debt Refinancing', desc: 'Consolidate higher-rate existing debt into a single low-rate SBA loan.', example: 'A logistics company refinances $500K in high-rate debt into an SBA term loan, cutting their effective rate by 60%.' },
       { title: 'Business Acquisition', desc: 'Buy an existing business, franchise, or competitor.', example: 'An entrepreneur uses a $750,000 SBA loan to acquire an established HVAC company with $2M in annual revenue.' },
     ],
     faqs: [
@@ -173,7 +173,7 @@ const SERVICE_DATA: Record<string, {
       { q: 'What is the minimum revenue needed for a business line of credit?', a: 'Most lenders require at least $15,000/month ($180,000/year) in business revenue. Some alternative lenders will work with lower revenue but at higher rates.' },
       { q: 'Does a line of credit affect my credit score?', a: 'The initial application typically involves a soft credit pull (no impact). Once approved, how you use the line can positively impact your business credit score if you pay on time and keep utilization moderate.' },
     ],
-    related: ['term-loans', 'sba-loans', 'merchant-cash-advance'],
+    related: ['term-loans', 'sba-loans', 'working-capital'],
     schema: { '@type': 'FinancialProduct', name: 'Business Line of Credit', description: 'Revolving business lines of credit up to $1M for small businesses.' },
   },
 
@@ -271,18 +271,18 @@ const SERVICE_DATA: Record<string, {
       { q: 'Can a new business use invoice financing?', a: 'Yes — this is one of the few funding products with no minimum time in business requirement. What matters is that you have creditworthy clients and legitimate outstanding invoices. A startup with $500,000 in Fortune 500 receivables can access invoice financing immediately.' },
       { q: 'What is a recourse vs non-recourse factoring agreement?', a: 'Recourse factoring means if your client doesn\'t pay, you\'re responsible for repaying the advance. Non-recourse factoring means the lender assumes the credit risk — if the client doesn\'t pay due to insolvency, you keep the advance. Non-recourse typically carries a higher fee.' },
     ],
-    related: ['lines-of-credit', 'merchant-cash-advance', 'term-loans'],
+    related: ['lines-of-credit', 'working-capital', 'term-loans'],
     schema: { '@type': 'FinancialProduct', name: 'Invoice Financing', description: 'Invoice financing and factoring — advance up to 90% of outstanding invoices.' },
   },
 
-  'merchant-cash-advance': {
-    name: 'Merchant Cash Advance',
+  'working-capital': {
+    name: 'Working Capital',
     icon: '⚡',
     tagline: 'Same-day funding · Revenue-based · 500+ credit OK',
-    metaTitle: 'Merchant Cash Advance for Business | Gateway Capital',
-    metaDesc: 'Get matched to merchant cash advance lenders. Same-day funding based on daily sales — no fixed monthly payment. 500+ credit score. Apply in 2 minutes.',
-    heroHeadline: 'Merchant cash advance. Fast capital, flexible repayment.',
-    heroSub: 'An MCA gives you capital based on your future sales — repaid automatically as a percentage of your daily revenue. No fixed monthly payment, no collateral, minimal documentation. Typically the fastest path to business capital available.',
+    metaTitle: 'Working Capital Loans for Business | Gateway Capital',
+    metaDesc: 'Get matched to working capital lenders. Same-day funding based on daily sales — no fixed monthly payment. 500+ credit score. Apply in 2 minutes. Fast, flexible business capital.',
+    heroHeadline: 'Working capital. Fast capital to keep your business moving.',
+    heroSub: 'Working capital financing gives you fast, flexible access to cash for day-to-day operations — payroll, inventory, marketing, and unexpected costs. Revenue-based repayment means no fixed monthly payment. We match you to the best working capital lenders for your business profile.',
     amount: '$5,000 – $750,000',
     rate: '1.1 – 1.5 factor rate',
     term: '3 – 18 months',
@@ -292,7 +292,7 @@ const SERVICE_DATA: Record<string, {
     minTime: '3 months in business',
     howItWorks: [
       { title: 'Apply in 2 minutes', desc: 'Provide basic business info and 3 months of bank or processing statements. No hard credit pull.' },
-      { title: 'Get matched to MCA providers', desc: 'We match you to funders who specialize in your industry and revenue volume.' },
+      { title: 'Get matched to working capital providers', desc: 'We match you to funders who specialize in your industry and revenue volume.' },
       { title: 'Receive your offer', desc: 'See the advance amount, factor rate, and estimated repayment timeline. Full transparency before you sign.' },
       { title: 'Funded same day', desc: 'E-sign your agreement and funds are in your account the same business day in most cases.' },
     ],
@@ -302,26 +302,26 @@ const SERVICE_DATA: Record<string, {
       { icon: '📋', title: 'Minimal documentation', desc: 'Typically just 3–6 months of bank or processing statements. No tax returns, no extensive financial statements.' },
       { icon: '🔓', title: 'No fixed monthly payment', desc: 'There\'s no set monthly payment to miss. Repayment adjusts automatically with your revenue — reducing stress in slow months.' },
       { icon: '🎯', title: 'Any business purpose', desc: 'No restrictions on how you use the capital — inventory, payroll, marketing, repairs, opportunities.' },
-      { icon: '✅', title: 'Accessible with lower credit', desc: 'MCA providers focus on revenue and card volume more than credit score. 500+ scores often qualify.' },
+      { icon: '✅', title: 'Accessible with lower credit', desc: 'Working capital providers focus on revenue and daily sales more than credit score. 500+ scores often qualify.' },
     ],
     useCases: [
       { title: 'Emergency Capital', desc: 'Handle an urgent expense that can\'t wait for traditional loan approval timelines.', example: 'A restaurant\'s HVAC system fails in July — they get $30,000 funded same-day to replace it.' },
       { title: 'Seasonal Inventory', desc: 'Stock up before peak season when traditional lenders may be slower.', example: 'A gift shop gets $75,000 funded in 24 hours to purchase Q4 holiday inventory.' },
-      { title: 'Marketing Opportunities', desc: 'Fund a time-sensitive campaign or promotional event.', example: 'A salon receives $20,000 to fund a local marketing blitz and triple new client bookings.' },
       { title: 'Payroll Coverage', desc: 'Ensure payroll is met during a cash flow crunch.', example: 'A contractor draws $40,000 to cover 2 weeks of payroll while waiting on a delayed payment.' },
+      { title: 'Marketing Opportunities', desc: 'Fund a time-sensitive campaign or promotional event.', example: 'A salon receives $20,000 to fund a local marketing blitz and triple new client bookings.' },
       { title: 'Equipment Repair', desc: 'Fix critical equipment immediately without downtime.', example: 'A printing company gets $25,000 to repair a press that broke down mid-contract.' },
       { title: 'Opportunity Seizure', desc: 'Move fast on a deal that can\'t wait for a bank loan.', example: 'A retailer gets $100,000 in 24 hours to purchase discounted inventory from a closing competitor.' },
     ],
     faqs: [
-      { q: 'How does a merchant cash advance work?', a: 'An MCA provider gives you a lump sum of capital upfront. In exchange, you agree to repay a larger total amount (determined by the factor rate) through a percentage of your daily credit card or debit card sales, or daily ACH withdrawals from your bank account. For example: a $100,000 advance with a 1.3 factor rate = $130,000 total repayment, paid at 10% of daily sales until the balance is cleared.' },
-      { q: 'How can a merchant cash advance help my business?', a: 'An MCA solves the speed problem in business lending. When you need capital now — for an emergency, a seasonal opportunity, or a time-sensitive decision — an MCA can fund the same day. The revenue-based repayment also means you\'re never stuck with a fixed payment you can\'t afford in a slow month. The trade-off is cost — MCAs are more expensive than term loans or SBA products — but for the right situation, the speed and flexibility justify it.' },
-      { q: 'What is a factor rate and how does it compare to an interest rate?', a: 'A factor rate (like 1.3) is different from an APR. A 1.3 factor rate means you repay $1.30 for every $1.00 borrowed — so $100,000 becomes $130,000 total. This is simpler to calculate but typically more expensive than a traditional interest rate when expressed as APR. Use MCAs when speed and flexibility matter more than cost.' },
-      { q: 'Can I get a merchant cash advance with bad credit?', a: 'Yes — MCA providers focus primarily on your revenue and daily sales volume, not your credit score. Many businesses with 500 credit scores receive MCA funding. A consistent history of daily credit card sales is the most important qualifying factor.' },
-      { q: 'How long does it take to repay a merchant cash advance?', a: 'Repayment timelines are estimated, not fixed — they depend on your daily sales volume. Typical estimated repayment periods range from 3–18 months. Higher daily sales volume means faster repayment. The retrieved percentage is fixed, so slower months extend repayment and faster months shorten it.' },
-      { q: 'Can I have multiple merchant cash advances at once?', a: 'Some MCA providers offer "stacking" (multiple concurrent advances), but this is generally not recommended — it significantly increases your total repayment burden and daily withdrawal amount. We typically recommend one advance at a time and exploring longer-term products for subsequent needs.' },
+      { q: 'What is working capital and why does my business need it?', a: 'Working capital is the lifeblood of any business — it\'s the cash available to cover your day-to-day operating costs like payroll, inventory, rent, and utilities. When your working capital runs low, your business can\'t function even if it\'s profitable on paper. Working capital financing gives you immediate access to cash to bridge gaps, seize opportunities, and keep operations running smoothly without waiting for invoices to be paid or revenue to catch up.' },
+      { q: 'How does revenue-based working capital repayment work?', a: 'With revenue-based working capital, you receive a lump sum upfront and repay it through a fixed percentage of your daily credit card sales or daily ACH withdrawals from your bank account. For example: a $100,000 advance with a 1.3 factor rate = $130,000 total repayment, paid at 10% of daily sales until cleared. Slower revenue months mean smaller payments; stronger months mean faster payoff.' },
+      { q: 'How is working capital different from a term loan?', a: 'A term loan has a fixed monthly payment regardless of your revenue — if business is slow, you still owe the same amount. Working capital financing has payments that flex with your revenue, which reduces the risk of defaulting during a slow period. Term loans are typically cheaper but require stronger credit and more documentation. Working capital loans are faster and more accessible but carry higher effective costs.' },
+      { q: 'Can I get working capital with bad credit?', a: 'Yes — working capital providers focus primarily on your revenue and daily sales volume, not your credit score. Many businesses with 500 credit scores receive working capital funding. A consistent history of daily credit card sales or bank deposits is the most important qualifying factor.' },
+      { q: 'How quickly can I get working capital funding?', a: 'Most businesses in our network receive working capital funding the same day they apply — often within hours of approval. This makes it the fastest funding product available for businesses that need capital immediately.' },
+      { q: 'What is the minimum monthly revenue needed for working capital?', a: 'Most working capital providers in our network require at least $10,000/month in gross revenue. Some lenders work with lower volume, but rates will be higher. The stronger your daily revenue, the better your offer will be.' },
     ],
     related: ['term-loans', 'lines-of-credit', 'invoice-financing'],
-    schema: { '@type': 'FinancialProduct', name: 'Merchant Cash Advance', description: 'Merchant cash advances from $5K to $750K based on daily business revenue.' },
+    schema: { '@type': 'FinancialProduct', name: 'Working Capital Loans', description: 'Fast working capital financing from $5K to $750K based on daily business revenue.' },
   },
 }
 
@@ -331,7 +331,7 @@ const SERVICE_NAMES: Record<string, string> = {
   'lines-of-credit': 'Lines of Credit',
   'equipment-financing': 'Equipment Financing',
   'invoice-financing': 'Invoice Financing',
-  'merchant-cash-advance': 'Merchant Cash Advance',
+  'working-capital': 'Working Capital',
 }
 
 const SERVICE_ICONS: Record<string, string> = {
@@ -340,7 +340,7 @@ const SERVICE_ICONS: Record<string, string> = {
   'lines-of-credit': '💳',
   'equipment-financing': '⚙️',
   'invoice-financing': '📋',
-  'merchant-cash-advance': '⚡',
+  'working-capital': '⚡',
 }
 
 export async function generateStaticParams() {
@@ -385,7 +385,6 @@ export default function ServicePage({ params }: { params: { slug: string } }) {
           <div className="absolute inset-0 opacity-[0.04]" style={{ backgroundImage: 'radial-gradient(circle, white 1px, transparent 1px)', backgroundSize: '28px 28px' }} />
           <div className="absolute top-0 right-0 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/3" />
           <div className="relative max-w-5xl mx-auto">
-            {/* Breadcrumb */}
             <div className="flex items-center gap-2 text-xs text-slate-500 mb-6">
               <Link href="/" className="hover:text-slate-300 transition-colors">Home</Link>
               <span>›</span>
@@ -412,8 +411,6 @@ export default function ServicePage({ params }: { params: { slug: string } }) {
                   </Link>
                 </div>
               </div>
-
-              {/* Quick stats */}
               <div className="bg-white/8 backdrop-blur-sm border border-white/15 rounded-2xl p-6">
                 <div className="text-xs font-bold tracking-widest uppercase text-slate-400 mb-4">{data.name} — At a Glance</div>
                 <div className="space-y-3">
@@ -548,7 +545,7 @@ export default function ServicePage({ params }: { params: { slug: string } }) {
           </div>
         </section>
 
-        {/* Related services */}
+        {/* Related */}
         <section className="py-12 bg-white px-5">
           <div className="max-w-5xl mx-auto">
             <h3 className="font-display font-bold text-lg text-slate-900 mb-6">Other funding products</h3>
