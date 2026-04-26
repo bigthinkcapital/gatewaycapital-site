@@ -1,14 +1,17 @@
 /**
  * GatewayLogo — shared brand component
- * Uses the actual Gateway Capital brand PNG uploaded to public/
+ *
+ * Uses the real brand PNG uploaded to /public/
+ * <LogoHorizontal dark />   — mark + wordmark (nav light, footer dark)
  */
+
 import Image from 'next/image'
 
 const LOGO_SRC = '/file_00000000fb3871f5a0a97b25fe769035.png'
 
-/* ─────────────────────────────────────────────────────────────────────────
-   LOGO MARK — just the mark image, no wordmark
-   ───────────────────────────────────────────────────────────────────────── */
+/* ─────────────────────────────────────────────────────────────────────
+   MARK ONLY — just the PNG, no text
+   ─────────────────────────────────────────────────────────────────── */
 export function LogoMark({ size = 44 }: { size?: number }) {
   return (
     <Image
@@ -16,17 +19,17 @@ export function LogoMark({ size = 44 }: { size?: number }) {
       alt="Gateway Capital"
       width={size}
       height={size}
-      className="object-contain"
+      style={{ objectFit: 'contain' }}
       priority
     />
   )
 }
 
-/* ─────────────────────────────────────────────────────────────────────────
-   HORIZONTAL LOCKUP — mark + wordmark
+/* ─────────────────────────────────────────────────────────────────────
+   HORIZONTAL LOCKUP — PNG mark + wordmark text side by side
    dark=false  → navy/blue text (nav, white bg)
    dark=true   → white/light text (footer, dark bg)
-   ───────────────────────────────────────────────────────────────────────── */
+   ─────────────────────────────────────────────────────────────────── */
 interface LogoHorizontalProps {
   dark?: boolean
   size?: number
@@ -45,14 +48,18 @@ export function LogoHorizontal({ dark = false, size = 44 }: LogoHorizontalProps)
           alt="Gateway Capital logo"
           width={size}
           height={size}
-          className="object-contain"
+          style={{ objectFit: 'contain' }}
           priority
         />
       </span>
       <span className="leading-none select-none">
         <span
           className="block font-extrabold tracking-tight leading-none"
-          style={{ fontSize: '1.15rem', color: primary, fontFamily: 'var(--font-sora, ui-sans-serif)' }}
+          style={{
+            fontSize: '1.15rem',
+            color: primary,
+            fontFamily: 'var(--font-sora, ui-sans-serif)',
+          }}
         >
           Gateway{' '}
           <span style={{ color: accent }}>Capital</span>
