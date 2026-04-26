@@ -23,14 +23,14 @@ export default function Nav() {
     >
       <div className="max-w-6xl mx-auto px-5 h-16 flex items-center justify-between">
 
-        {/* Logo — using plain img tag, no Next.js Image optimization needed */}
+        {/* Logo */}
         <Link href="/" className="flex items-center flex-shrink-0">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            src="/logo.png"
+            src="/gateway-capital-logo-transparent.png"
             alt="Gateway Capital — Your Gateway to Business Funding"
             className="h-10 w-auto object-contain"
-            style={{ maxWidth: '220px' }}
+            style={{ maxWidth: '240px' }}
           />
         </Link>
 
