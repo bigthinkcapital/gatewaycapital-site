@@ -7,7 +7,7 @@ const INDUSTRY_SLUGS = [
 
 const SERVICE_SLUGS = [
   'sba-loans', 'term-loans', 'lines-of-credit',
-  'equipment-financing', 'invoice-financing', 'merchant-cash-advance',
+  'equipment-financing', 'invoice-financing', 'working-capital',
 ]
 
 export default function sitemap(): MetadataRoute.Sitemap {
