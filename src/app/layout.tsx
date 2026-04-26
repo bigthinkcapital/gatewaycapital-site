@@ -5,6 +5,8 @@ import './globals.css'
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter' })
 const sora = Sora({ subsets: ['latin'], variable: '--font-sora', weight: ['400', '600', '700', '800'] })
 
+const LOGO_PNG = '/file_00000000fb3871f5a0a97b25fe769035.png'
+
 export const metadata: Metadata = {
   metadataBase: new URL('https://gatewaycapitalfunding.com'),
   title: {
@@ -26,18 +28,20 @@ export const metadata: Metadata = {
     siteName: 'Gateway Capital',
     title: 'Gateway Capital | Small Business Loans & Funding Marketplace',
     description: 'One application. Multiple lenders compete for your business. Get funded in as little as 24 hours.',
-    images: [{ url: '/og-image.png', width: 1200, height: 630, alt: 'Gateway Capital — Business Funding Marketplace' }],
+    images: [{ url: LOGO_PNG, width: 1024, height: 1024, alt: 'Gateway Capital logo' }],
   },
   twitter: {
-    card: 'summary_large_image',
+    card: 'summary',
     title: 'Gateway Capital | Business Funding Marketplace',
     description: 'One application. Multiple lenders. Get the best offer for your business.',
+    images: [LOGO_PNG],
   },
   icons: {
     icon: [
-      { url: '/file_00000000fb3871f5a0a97b25fe769035.png', type: 'image/png' },
+      { url: LOGO_PNG, type: 'image/png' },
+      { url: '/favicon.svg', type: 'image/svg+xml' },
     ],
-    apple: '/file_00000000fb3871f5a0a97b25fe769035.png',
+    apple: LOGO_PNG,
   },
   robots: {
     index: true,
@@ -52,7 +56,7 @@ const jsonLd = {
   name: 'Gateway Capital',
   description: 'Small business lending marketplace connecting businesses to SBA loans, term loans, lines of credit, equipment financing, invoice financing, and working capital.',
   url: 'https://gatewaycapitalfunding.com',
-  logo: 'https://gatewaycapitalfunding.com/file_00000000fb3871f5a0a97b25fe769035.png',
+  logo: `https://gatewaycapitalfunding.com${LOGO_PNG}`,
   areaServed: 'US',
   serviceType: 'Business Lending Marketplace',
 }
