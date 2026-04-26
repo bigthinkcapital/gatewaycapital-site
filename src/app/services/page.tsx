@@ -8,7 +8,7 @@ import MobileCTA from '@/components/MobileCTA'
 export const metadata: Metadata = {
   title: 'Business Funding Products & Services | Gateway Capital',
   description:
-    'Gateway Capital matches businesses to SBA loans, term loans, lines of credit, equipment financing, invoice financing, and working capital. One application, multiple lenders, best terms. Apply in 2 minutes.',
+    'Gateway Capital matches businesses to SBA loans, term loans, lines of credit, equipment financing, invoice financing, and working capital loans. One application, multiple lenders, best terms. Apply in 2 minutes.',
   keywords: [
     'SBA loans', 'business term loans', 'business line of credit',
     'equipment financing', 'invoice financing', 'working capital loans',
@@ -86,13 +86,13 @@ const SERVICES = [
     icon: '⚡',
     name: 'Working Capital',
     slug: 'working-capital',
-    tagline: 'Same-day funding · Revenue-based · 500+ credit OK',
-    desc: 'Fast, flexible capital to keep your business running and growing. Repay based on daily revenue — no fixed monthly payment. Built for businesses needing immediate access to cash with minimal documentation.',
+    tagline: 'Same-day funding · Revenue-based repayment · 500+ credit OK',
+    desc: 'Access capital based on your future revenue. Repay through a percentage of daily sales — no fixed monthly payment. Built for businesses needing fast capital with minimal documentation.',
     amount: '$5K – $750K',
     rate: '1.1–1.5 factor rate',
     term: '3 – 18 months',
     speed: 'Same day',
-    best: ['Retail & restaurants', 'Emergency capital', 'Seasonal inventory', 'Fast growth needs'],
+    best: ['Retail & restaurants', 'High card volume', 'Fast capital needs', 'Flexible repayment'],
   },
 ]
 
@@ -194,6 +194,7 @@ export default function ServicesPage() {
               ))}
             </div>
 
+            {/* Comparison CTA */}
             <div className="bg-slate-900 rounded-2xl p-8 flex flex-col sm:flex-row items-center justify-between gap-6">
               <div>
                 <div className="font-display font-bold text-xl text-white mb-2">Not sure which product is right for you?</div>
