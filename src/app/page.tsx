@@ -5,6 +5,7 @@ import Footer from '@/components/Footer'
 import SmartBar from '@/components/SmartBar'
 import MobileCTA from '@/components/MobileCTA'
 import StatsSection from '@/components/StatsSection'
+import AnimatedHero from '@/components/AnimatedHero'
 
 export const metadata: Metadata = {
   title: 'Gateway Capital | Small Business Funding — Up to $5M',
@@ -44,18 +45,14 @@ export default function HomePage() {
 
       <main className="pt-[100px]">
 
-        {/* ── HERO ── */}
-        <section className="relative min-h-[calc(100vh-100px)] flex items-center bg-gradient-to-br from-slate-50 via-blue-50/40 to-white overflow-hidden pb-24 pt-12">
-          <div className="absolute inset-0 pointer-events-none">
-            <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-blue-600/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/3" />
-            <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-blue-400/5 rounded-full blur-2xl translate-y-1/2 -translate-x-1/4" />
-            <div
-              className="absolute inset-0 opacity-[0.025]"
-              style={{ backgroundImage: 'radial-gradient(circle, #1B4FD8 1px, transparent 1px)', backgroundSize: '32px 32px' }}
-            />
-          </div>
+        {/* ── HERO with animated canvas background ── */}
+        <section className="relative min-h-[calc(100vh-100px)] flex items-center overflow-hidden pb-24 pt-12">
 
-          <div className="relative max-w-6xl mx-auto px-5 grid md:grid-cols-2 gap-12 items-center w-full">
+          {/* Canvas animation fills the entire hero */}
+          <AnimatedHero />
+
+          {/* Content sits on top of the canvas */}
+          <div className="relative z-10 max-w-6xl mx-auto px-5 grid md:grid-cols-2 gap-12 items-center w-full">
             {/* Left */}
             <div>
               <div className="inline-flex items-center gap-2 bg-white border border-blue-100 rounded-full px-3 py-1.5 mb-6 shadow-sm">
@@ -69,8 +66,8 @@ export default function HomePage() {
                 Funding
               </h1>
 
-              <p className="text-lg text-slate-500 leading-relaxed mb-8 max-w-lg">
-                Access up to <strong className="text-slate-700">$5 million</strong> across 6+ funding products — matched by real specialists and funded in as little as 24 hours.
+              <p className="text-lg text-slate-600 leading-relaxed mb-8 max-w-lg">
+                Access up to <strong className="text-slate-800">$5 million</strong> across 6+ funding products — matched by real specialists and funded in as little as 24 hours.
               </p>
 
               <div className="flex flex-col sm:flex-row gap-3 mb-8">
@@ -82,7 +79,7 @@ export default function HomePage() {
                 </Link>
                 <Link
                   href="#how-it-works"
-                  className="inline-flex items-center justify-center gap-2 bg-white hover:bg-slate-50 text-slate-700 font-semibold text-base px-7 py-4 rounded-xl border border-slate-200 transition-all hover:border-blue-200"
+                  className="inline-flex items-center justify-center gap-2 bg-white/80 backdrop-blur-sm hover:bg-white text-slate-700 font-semibold text-base px-7 py-4 rounded-xl border border-slate-200 transition-all hover:border-blue-200"
                 >
                   See How It Works
                 </Link>
@@ -95,7 +92,7 @@ export default function HomePage() {
               </div>
             </div>
 
-            {/* Right — card */}
+            {/* Right — funding card */}
             <div className="relative">
               <div className="absolute -top-4 right-0 bg-white rounded-2xl shadow-lg border border-slate-100 px-4 py-3 flex items-center gap-3 z-10">
                 <span className="text-2xl">⚡</span>
@@ -105,7 +102,7 @@ export default function HomePage() {
                 </div>
               </div>
 
-              <div className="bg-white rounded-3xl border border-slate-100 shadow-2xl shadow-blue-600/10 p-7 relative overflow-hidden">
+              <div className="bg-white/90 backdrop-blur-sm rounded-3xl border border-slate-100 shadow-2xl shadow-blue-600/10 p-7 relative overflow-hidden">
                 <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-blue-600 to-blue-400 rounded-t-3xl" />
                 <div className="text-xs font-bold tracking-widest uppercase text-slate-400 mb-1">Funding Preview</div>
                 <div className="font-display font-extrabold text-5xl text-slate-900 tracking-tight mb-5">
@@ -171,7 +168,6 @@ export default function HomePage() {
               </h2>
               <p className="text-slate-500 max-w-xl mx-auto">One application. Multiple lenders. Matched to the best product for your situation.</p>
             </div>
-
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 mb-10">
               {PRODUCTS.map(p => (
                 <Link key={p.name} href="/apply"
@@ -187,7 +183,6 @@ export default function HomePage() {
                 </Link>
               ))}
             </div>
-
             <div className="bg-blue-600 rounded-2xl p-7 flex flex-col sm:flex-row items-center justify-between gap-5">
               <div>
                 <div className="font-display font-bold text-xl text-white mb-1">Not sure which product fits?</div>
@@ -248,7 +243,6 @@ export default function HomePage() {
                 <span className="text-slate-400 text-sm">· 3,200+ verified reviews</span>
               </div>
             </div>
-
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 mb-12">
               {REVIEWS.map(r => (
                 <div key={r.author} className="bg-slate-50 border border-slate-200 rounded-2xl p-6 hover:shadow-md transition-shadow">
@@ -259,7 +253,6 @@ export default function HomePage() {
                 </div>
               ))}
             </div>
-
             <div className="bg-slate-50 border border-slate-200 rounded-2xl px-6 py-5 flex flex-wrap items-center justify-around gap-4">
               {[
                 { icon: '⭐', name: '4.8 Trustpilot Rating', sub: '3,200+ Verified Reviews' },
