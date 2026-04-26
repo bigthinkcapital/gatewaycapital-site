@@ -16,7 +16,7 @@ export default function Nav() {
     <nav
       className={`fixed left-0 right-0 z-40 transition-all duration-300 ${
         scrolled
-          ? 'bg-white/96 backdrop-blur-md shadow-sm border-b border-slate-200'
+          ? 'bg-white/95 backdrop-blur-md shadow-sm border-b border-slate-200'
           : 'bg-white/90 backdrop-blur-sm border-b border-slate-100'
       }`}
       style={{ top: '36px' }}
@@ -24,17 +24,25 @@ export default function Nav() {
       <div className="max-w-6xl mx-auto px-5 h-16 flex items-center justify-between">
 
         {/* Logo */}
-        <Link href="/" className="flex items-center flex-shrink-0">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src="/gateway-capital-logo-transparent.png"
-            alt="Gateway Capital — Your Gateway to Business Funding"
-            className="h-10 w-auto object-contain"
-            style={{ maxWidth: '240px' }}
-          />
+        <Link href="/" className="flex items-center gap-3 group">
+          <div className="w-11 h-11 bg-blue-600 rounded-xl flex items-center justify-center shadow-sm group-hover:bg-blue-700 transition-colors flex-shrink-0">
+            <svg width="22" height="22" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M2 14V8C2 4.686 4.686 2 8 2C11.314 2 14 4.686 14 8V14" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+              <rect x="2" y="11" width="3.5" height="3" rx="0.5" fill="white"/>
+              <rect x="10.5" y="11" width="3.5" height="3" rx="0.5" fill="white"/>
+            </svg>
+          </div>
+          <div className="leading-none">
+            <div className="font-display font-extrabold text-xl text-slate-900 tracking-tight leading-none">
+              Gateway <span className="text-blue-600">Capital</span>
+            </div>
+            <div className="text-[9px] font-semibold tracking-[0.2em] text-slate-400 uppercase mt-1 leading-none">
+              Business Funding
+            </div>
+          </div>
         </Link>
 
-        {/* Desktop nav links */}
+        {/* Desktop links */}
         <div className="hidden md:flex items-center gap-8">
           <Link href="/#products" className="text-sm font-medium text-slate-500 hover:text-slate-900 transition-colors">
             Funding Products
@@ -51,8 +59,7 @@ export default function Nav() {
         <div className="hidden md:block">
           <Link
             href="/apply"
-            className="inline-flex items-center gap-1.5 text-white text-sm font-semibold px-5 py-2.5 rounded-lg transition-all hover:shadow-lg hover:-translate-y-0.5"
-            style={{ background: '#1B3F7A' }}
+            className="inline-flex items-center gap-1.5 bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold px-5 py-2.5 rounded-lg transition-all hover:shadow-lg hover:shadow-blue-600/25 hover:-translate-y-0.5"
           >
             Apply Now →
           </Link>
@@ -66,11 +73,11 @@ export default function Nav() {
         >
           {menuOpen ? (
             <svg width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
-              <path d="M4 4l12 12M16 4L4 16" />
+              <path d="M4 4l12 12M16 4L4 16"/>
             </svg>
           ) : (
             <svg width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
-              <path d="M3 6h14M3 10h14M3 14h14" />
+              <path d="M3 6h14M3 10h14M3 14h14"/>
             </svg>
           )}
         </button>
@@ -91,8 +98,7 @@ export default function Nav() {
           <div className="pt-2 border-t border-slate-100 mt-1">
             <Link
               href="/apply"
-              className="block text-white text-sm font-semibold px-5 py-3 rounded-lg text-center transition-colors"
-              style={{ background: '#1B3F7A' }}
+              className="block bg-blue-600 text-white text-sm font-semibold px-5 py-3 rounded-lg text-center hover:bg-blue-700 transition-colors"
               onClick={() => setMenuOpen(false)}
             >
               Apply Now — It&apos;s Free →
