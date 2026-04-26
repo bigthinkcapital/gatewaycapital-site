@@ -1,7 +1,6 @@
 'use client'
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
-import Image from 'next/image'
 
 export default function Nav() {
   const [scrolled, setScrolled] = useState(false)
@@ -24,15 +23,14 @@ export default function Nav() {
     >
       <div className="max-w-6xl mx-auto px-5 h-16 flex items-center justify-between">
 
-        {/* Logo */}
+        {/* Logo — using plain img tag, no Next.js Image optimization needed */}
         <Link href="/" className="flex items-center flex-shrink-0">
-          <Image
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
             src="/logo.png"
             alt="Gateway Capital — Your Gateway to Business Funding"
-            width={220}
-            height={73}
             className="h-10 w-auto object-contain"
-            priority
+            style={{ maxWidth: '220px' }}
           />
         </Link>
 
