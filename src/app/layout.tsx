@@ -35,10 +35,9 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: [
-      { url: '/favicon.svg', type: 'image/svg+xml' },
-      { url: '/favicon.ico', sizes: 'any' },
+      { url: '/file_00000000fb3871f5a0a97b25fe769035.png', type: 'image/png' },
     ],
-    apple: '/apple-touch-icon.png',
+    apple: '/file_00000000fb3871f5a0a97b25fe769035.png',
   },
   robots: {
     index: true,
@@ -53,7 +52,7 @@ const jsonLd = {
   name: 'Gateway Capital',
   description: 'Small business lending marketplace connecting businesses to SBA loans, term loans, lines of credit, equipment financing, invoice financing, and working capital.',
   url: 'https://gatewaycapitalfunding.com',
-  logo: 'https://gatewaycapitalfunding.com/favicon.svg',
+  logo: 'https://gatewaycapitalfunding.com/file_00000000fb3871f5a0a97b25fe769035.png',
   areaServed: 'US',
   serviceType: 'Business Lending Marketplace',
 }
