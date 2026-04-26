@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
 'use client'
 import { useEffect, useRef } from 'react'
 
@@ -25,16 +26,25 @@ export default function AnimatedHero() {
     const ctx = canvas.getContext('2d')
     if (!ctx) return
 
-    let animId: number
+    // Use local mutable refs so inner functions always have fresh values
     let W = canvas.offsetWidth || 800
     let H = canvas.offsetHeight || 600
+    let animId = 0
+    let frame = 0
+    let spawnTimer = 0
 
     const particles: Particle[] = []
     const bars: Bar[] = []
     const streams: Stream[] = []
 
-    const BLUES = ['rgba(27,79,216,', 'rgba(59,130,246,', 'rgba(37,99,235,', 'rgba(96,165,250,']
+    const BLUES = [
+      'rgba(27,79,216,',
+      'rgba(59,130,246,',
+      'rgba(37,99,235,',
+      'rgba(96,165,250,',
+    ]
 
+    // ── INIT ──────────────────────────────
     function initBars() {
       bars.length = 0
       const count = Math.floor(W / 60)
@@ -53,7 +63,7 @@ export default function AnimatedHero() {
     function initStreams() {
       streams.length = 0
       for (let i = 0; i < 5; i++) {
-        const pts = []
+        const pts: { x: number; y: number }[] = []
         const startX = Math.random() * W
         for (let j = 0; j < 8; j++) {
           pts.push({ x: startX + (Math.random() - 0.5) * 80 * j, y: (j / 7) * H })
@@ -69,15 +79,15 @@ export default function AnimatedHero() {
     }
 
     function resize() {
-      // canvas is guaranteed non-null here (captured in closure above)
-      W = canvas!.offsetWidth || 800
-      H = canvas!.offsetHeight || 600
-      canvas!.width = W
-      canvas!.height = H
+      W = canvas.offsetWidth || 800
+      H = canvas.offsetHeight || 600
+      canvas.width = W
+      canvas.height = H
       initBars()
       initStreams()
     }
 
+    // ── PARTICLES ─────────────────────────
     function spawnParticle() {
       const types: Particle['type'][] = ['dollar', 'dollar', 'dollar', 'circle', 'bar', 'line']
       particles.push({
@@ -96,10 +106,11 @@ export default function AnimatedHero() {
       })
     }
 
-    function drawDollar(x: number, y: number, size: number, rotation: number, alpha: number, color: string) {
+    // ── DRAW HELPERS ──────────────────────
+    function drawDollar(x: number, y: number, size: number, rot: number, alpha: number, color: string) {
       ctx.save()
       ctx.translate(x, y)
-      ctx.rotate(rotation)
+      ctx.rotate(rot)
       ctx.globalAlpha = alpha
       ctx.font = `bold ${size}px Arial`
       ctx.fillStyle = color + '1)'
@@ -120,7 +131,7 @@ export default function AnimatedHero() {
       ctx.restore()
     }
 
-    function drawBar(x: number, y: number, size: number, alpha: number, color: string) {
+    function drawBarShape(x: number, y: number, size: number, alpha: number, color: string) {
       ctx.save()
       ctx.globalAlpha = alpha
       ctx.fillStyle = color + '0.7)'
@@ -128,10 +139,10 @@ export default function AnimatedHero() {
       ctx.restore()
     }
 
-    function drawLine(x: number, y: number, size: number, rotation: number, alpha: number, color: string) {
+    function drawLineShape(x: number, y: number, size: number, rot: number, alpha: number, color: string) {
       ctx.save()
       ctx.translate(x, y)
-      ctx.rotate(rotation)
+      ctx.rotate(rot)
       ctx.globalAlpha = alpha
       ctx.strokeStyle = color + '0.6)'
       ctx.lineWidth = 1.5
@@ -174,8 +185,8 @@ export default function AnimatedHero() {
 
     function drawGrid() {
       const spacing = 36
-      for (let x = 0; x < W; x += spacing) {
-        for (let y = 0; y < H; y += spacing) {
+      for (let x = 0; x <= W; x += spacing) {
+        for (let y = 0; y <= H; y += spacing) {
           ctx.beginPath()
           ctx.arc(x, y, 1, 0, Math.PI * 2)
           ctx.fillStyle = 'rgba(27,79,216,0.06)'
@@ -184,7 +195,7 @@ export default function AnimatedHero() {
       }
     }
 
-    function drawUpwardArrow(t: number) {
+    function drawTrendArrow(t: number) {
       const cx = W * 0.85
       const cy = H * 0.4
       const pulse = Math.sin(t * 0.02) * 0.3 + 0.7
@@ -210,14 +221,14 @@ export default function AnimatedHero() {
       ctx.restore()
     }
 
-    function drawCircuitLines(t: number) {
+    function drawFlowLines(t: number) {
       const lines = [
         { x1: 0, y1: H * 0.25, x2: W * 0.3, y2: H * 0.15 },
         { x1: W * 0.7, y1: H * 0.1, x2: W, y2: H * 0.3 },
         { x1: W * 0.1, y1: H * 0.75, x2: W * 0.4, y2: H * 0.85 },
       ]
       lines.forEach((line, i) => {
-        const prog = ((t * 0.008 + i * 0.33) % 1)
+        const prog = (t * 0.008 + i * 0.33) % 1
         const x = line.x1 + (line.x2 - line.x1) * prog
         const y = line.y1 + (line.y2 - line.y1) * prog
         ctx.save()
@@ -239,14 +250,13 @@ export default function AnimatedHero() {
       })
     }
 
-    let frame = 0
-    let spawnTimer = 0
-
+    // ── MAIN LOOP ─────────────────────────
     function animate() {
       animId = requestAnimationFrame(animate)
       frame++
       ctx.clearRect(0, 0, W, H)
 
+      // Background
       const bg = ctx.createLinearGradient(0, 0, W, H)
       bg.addColorStop(0, 'rgba(244,247,255,1)')
       bg.addColorStop(0.5, 'rgba(237,242,255,1)')
@@ -256,47 +266,50 @@ export default function AnimatedHero() {
 
       drawGrid()
       drawRisingBars()
-      drawCircuitLines(frame)
-      drawUpwardArrow(frame)
+      drawFlowLines(frame)
+      drawTrendArrow(frame)
       streams.forEach(s => drawStreamPath(s))
 
+      // Spawn
       spawnTimer++
       if (spawnTimer > 12 && particles.length < 35) {
         spawnParticle()
         spawnTimer = 0
       }
 
+      // Update particles
       for (let i = particles.length - 1; i >= 0; i--) {
         const p = particles[i]
         p.x += p.vx
         p.y += p.vy
         p.rotation += p.rotSpeed
         p.life++
-        const lifeRatio = p.life / p.maxLife
-        if (lifeRatio < 0.15) p.opacity = (lifeRatio / 0.15) * 0.18
-        else if (lifeRatio > 0.75) p.opacity = (1 - (lifeRatio - 0.75) / 0.25) * 0.18
-        else p.opacity = 0.18
+        const lr = p.life / p.maxLife
+        if (lr < 0.15)       p.opacity = (lr / 0.15) * 0.18
+        else if (lr > 0.75)  p.opacity = (1 - (lr - 0.75) / 0.25) * 0.18
+        else                 p.opacity = 0.18
 
         if (p.life >= p.maxLife || p.y < -30) { particles.splice(i, 1); continue }
 
         switch (p.type) {
           case 'dollar': drawDollar(p.x, p.y, p.size, p.rotation, p.opacity, p.color); break
           case 'circle': drawCircle(p.x, p.y, p.size, p.opacity, p.color); break
-          case 'bar':    drawBar(p.x, p.y, p.size, p.opacity, p.color); break
-          case 'line':   drawLine(p.x, p.y, p.size, p.rotation, p.opacity, p.color); break
+          case 'bar':    drawBarShape(p.x, p.y, p.size, p.opacity, p.color); break
+          case 'line':   drawLineShape(p.x, p.y, p.size, p.rotation, p.opacity, p.color); break
         }
       }
 
-      const glow = ctx.createRadialGradient(W * 0.8, H * 0.1, 0, W * 0.8, H * 0.1, W * 0.4)
-      glow.addColorStop(0, 'rgba(27,79,216,0.07)')
-      glow.addColorStop(1, 'rgba(27,79,216,0)')
-      ctx.fillStyle = glow
+      // Radial glows
+      const g1 = ctx.createRadialGradient(W * 0.8, H * 0.1, 0, W * 0.8, H * 0.1, W * 0.4)
+      g1.addColorStop(0, 'rgba(27,79,216,0.07)')
+      g1.addColorStop(1, 'rgba(27,79,216,0)')
+      ctx.fillStyle = g1
       ctx.fillRect(0, 0, W, H)
 
-      const glow2 = ctx.createRadialGradient(W * 0.1, H * 0.9, 0, W * 0.1, H * 0.9, W * 0.3)
-      glow2.addColorStop(0, 'rgba(59,130,246,0.05)')
-      glow2.addColorStop(1, 'rgba(59,130,246,0)')
-      ctx.fillStyle = glow2
+      const g2 = ctx.createRadialGradient(W * 0.1, H * 0.9, 0, W * 0.1, H * 0.9, W * 0.3)
+      g2.addColorStop(0, 'rgba(59,130,246,0.05)')
+      g2.addColorStop(1, 'rgba(59,130,246,0)')
+      ctx.fillStyle = g2
       ctx.fillRect(0, 0, W, H)
     }
 
