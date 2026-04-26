@@ -217,7 +217,7 @@ const SERVICE_DATA: Record<string, {
     faqs: [
       { q: 'How can equipment financing help my business?', a: 'Equipment financing solves one of the most common dilemmas in business: you need the equipment to generate revenue, but you need revenue to pay for the equipment. Financing breaks this cycle — you get the equipment now, start generating revenue immediately, and repay the loan from that revenue over time. Meanwhile, your working capital stays intact for operations and opportunities.' },
       { q: 'Can I finance used equipment?', a: 'Yes. Most equipment lenders in our network finance used equipment, typically up to 10–15 years old depending on type and condition. An appraisal or invoice may be required for older equipment.' },
-      { q: 'What equipment can be financed?', a: 'Almost any equipment used for legitimate business purposes: vehicles, machinery, medical devices, restaurant equipment, technology, construction equipment, agricultural equipment, manufacturing tools, fitness equipment, and more. Largely the test is: does it have business use and resale value?' },
+      { q: 'What equipment can be financed?', a: 'Almost any equipment used for legitimate business purposes: vehicles, machinery, medical devices, restaurant equipment, technology, construction equipment, agricultural equipment, manufacturing tools, fitness equipment, and more. The test is: does it have business use and resale value?' },
       { q: 'Do I need a down payment for equipment financing?', a: 'Not always. Many lenders in our network offer 0% down for qualified businesses — meaning you finance the full purchase price. Stronger credit profiles and larger loan amounts are more likely to qualify for zero-down.' },
       { q: 'What happens to the equipment at the end of the loan?', a: 'With equipment financing (a loan), you own the equipment outright once the loan is paid off. With equipment leasing (which some lenders also offer), you may have options to buy, return, or upgrade at the end of the term.' },
       { q: 'Can a startup get equipment financing?', a: 'Yes — startups as young as 6 months can qualify for equipment financing because the equipment itself secures the loan. This makes it one of the most accessible forms of financing for newer businesses.' },
@@ -278,11 +278,11 @@ const SERVICE_DATA: Record<string, {
   'working-capital': {
     name: 'Working Capital',
     icon: '⚡',
-    tagline: 'Same-day funding · Revenue-based · 500+ credit OK',
+    tagline: 'Same-day funding · Revenue-based repayment · 500+ credit OK',
     metaTitle: 'Working Capital Loans for Business | Gateway Capital',
-    metaDesc: 'Get matched to working capital lenders. Same-day funding based on daily sales — no fixed monthly payment. 500+ credit score. Apply in 2 minutes. Fast, flexible business capital.',
-    heroHeadline: 'Working capital. Fast capital to keep your business moving.',
-    heroSub: 'Working capital financing gives you fast, flexible access to cash for day-to-day operations — payroll, inventory, marketing, and unexpected costs. Revenue-based repayment means no fixed monthly payment. We match you to the best working capital lenders for your business profile.',
+    metaDesc: 'Get matched to working capital lenders. Same-day funding based on daily revenue — no fixed monthly payment. 500+ credit score. Apply in 2 minutes.',
+    heroHeadline: 'Working capital loans. Fast capital, flexible repayment.',
+    heroSub: 'Working capital financing gives you access to capital based on your business revenue — repaid automatically as a percentage of daily sales. No fixed monthly payment, no collateral, minimal documentation. One of the fastest paths to business funding available.',
     amount: '$5,000 – $750,000',
     rate: '1.1 – 1.5 factor rate',
     term: '3 – 18 months',
@@ -292,7 +292,7 @@ const SERVICE_DATA: Record<string, {
     minTime: '3 months in business',
     howItWorks: [
       { title: 'Apply in 2 minutes', desc: 'Provide basic business info and 3 months of bank or processing statements. No hard credit pull.' },
-      { title: 'Get matched to working capital providers', desc: 'We match you to funders who specialize in your industry and revenue volume.' },
+      { title: 'Get matched to working capital lenders', desc: 'We match you to funders who specialize in your industry and revenue volume.' },
       { title: 'Receive your offer', desc: 'See the advance amount, factor rate, and estimated repayment timeline. Full transparency before you sign.' },
       { title: 'Funded same day', desc: 'E-sign your agreement and funds are in your account the same business day in most cases.' },
     ],
@@ -302,26 +302,26 @@ const SERVICE_DATA: Record<string, {
       { icon: '📋', title: 'Minimal documentation', desc: 'Typically just 3–6 months of bank or processing statements. No tax returns, no extensive financial statements.' },
       { icon: '🔓', title: 'No fixed monthly payment', desc: 'There\'s no set monthly payment to miss. Repayment adjusts automatically with your revenue — reducing stress in slow months.' },
       { icon: '🎯', title: 'Any business purpose', desc: 'No restrictions on how you use the capital — inventory, payroll, marketing, repairs, opportunities.' },
-      { icon: '✅', title: 'Accessible with lower credit', desc: 'Working capital providers focus on revenue and daily sales more than credit score. 500+ scores often qualify.' },
+      { icon: '✅', title: 'Accessible with lower credit', desc: 'Working capital lenders focus on revenue and sales volume more than credit score. 500+ scores often qualify.' },
     ],
     useCases: [
       { title: 'Emergency Capital', desc: 'Handle an urgent expense that can\'t wait for traditional loan approval timelines.', example: 'A restaurant\'s HVAC system fails in July — they get $30,000 funded same-day to replace it.' },
       { title: 'Seasonal Inventory', desc: 'Stock up before peak season when traditional lenders may be slower.', example: 'A gift shop gets $75,000 funded in 24 hours to purchase Q4 holiday inventory.' },
-      { title: 'Payroll Coverage', desc: 'Ensure payroll is met during a cash flow crunch.', example: 'A contractor draws $40,000 to cover 2 weeks of payroll while waiting on a delayed payment.' },
       { title: 'Marketing Opportunities', desc: 'Fund a time-sensitive campaign or promotional event.', example: 'A salon receives $20,000 to fund a local marketing blitz and triple new client bookings.' },
+      { title: 'Payroll Coverage', desc: 'Ensure payroll is met during a cash flow crunch.', example: 'A contractor draws $40,000 to cover 2 weeks of payroll while waiting on a delayed payment.' },
       { title: 'Equipment Repair', desc: 'Fix critical equipment immediately without downtime.', example: 'A printing company gets $25,000 to repair a press that broke down mid-contract.' },
       { title: 'Opportunity Seizure', desc: 'Move fast on a deal that can\'t wait for a bank loan.', example: 'A retailer gets $100,000 in 24 hours to purchase discounted inventory from a closing competitor.' },
     ],
     faqs: [
-      { q: 'What is working capital and why does my business need it?', a: 'Working capital is the lifeblood of any business — it\'s the cash available to cover your day-to-day operating costs like payroll, inventory, rent, and utilities. When your working capital runs low, your business can\'t function even if it\'s profitable on paper. Working capital financing gives you immediate access to cash to bridge gaps, seize opportunities, and keep operations running smoothly without waiting for invoices to be paid or revenue to catch up.' },
-      { q: 'How does revenue-based working capital repayment work?', a: 'With revenue-based working capital, you receive a lump sum upfront and repay it through a fixed percentage of your daily credit card sales or daily ACH withdrawals from your bank account. For example: a $100,000 advance with a 1.3 factor rate = $130,000 total repayment, paid at 10% of daily sales until cleared. Slower revenue months mean smaller payments; stronger months mean faster payoff.' },
-      { q: 'How is working capital different from a term loan?', a: 'A term loan has a fixed monthly payment regardless of your revenue — if business is slow, you still owe the same amount. Working capital financing has payments that flex with your revenue, which reduces the risk of defaulting during a slow period. Term loans are typically cheaper but require stronger credit and more documentation. Working capital loans are faster and more accessible but carry higher effective costs.' },
-      { q: 'Can I get working capital with bad credit?', a: 'Yes — working capital providers focus primarily on your revenue and daily sales volume, not your credit score. Many businesses with 500 credit scores receive working capital funding. A consistent history of daily credit card sales or bank deposits is the most important qualifying factor.' },
-      { q: 'How quickly can I get working capital funding?', a: 'Most businesses in our network receive working capital funding the same day they apply — often within hours of approval. This makes it the fastest funding product available for businesses that need capital immediately.' },
-      { q: 'What is the minimum monthly revenue needed for working capital?', a: 'Most working capital providers in our network require at least $10,000/month in gross revenue. Some lenders work with lower volume, but rates will be higher. The stronger your daily revenue, the better your offer will be.' },
+      { q: 'How does working capital financing work?', a: 'A working capital lender provides a lump sum of capital upfront. In exchange, you agree to repay a larger total amount (determined by the factor rate) through a percentage of your daily credit card, debit card, or bank revenue — automatically. For example: a $100,000 advance with a 1.3 factor rate means $130,000 total repayment, paid at 10% of daily revenue until the balance is cleared.' },
+      { q: 'How can working capital financing help my business?', a: 'Working capital financing solves the speed problem in business lending. When you need capital now — for an emergency, a seasonal opportunity, or a time-sensitive decision — it can fund the same day. The revenue-based repayment means you\'re never stuck with a fixed payment you can\'t afford in a slow month. The trade-off is cost — working capital products are more expensive than term loans or SBA products — but for the right situation, the speed and flexibility justify it.' },
+      { q: 'What is a factor rate and how does it compare to an interest rate?', a: 'A factor rate (like 1.3) is different from an APR. A 1.3 factor rate means you repay $1.30 for every $1.00 borrowed — so $100,000 becomes $130,000 total. This is simpler to calculate but typically more expensive than a traditional interest rate when expressed as APR. Working capital products are best when speed and flexibility matter more than minimizing cost.' },
+      { q: 'Can I get working capital financing with bad credit?', a: 'Yes — working capital lenders focus primarily on your revenue and daily sales volume, not your credit score. Many businesses with 500 credit scores receive funding. A consistent history of business revenue is the most important qualifying factor.' },
+      { q: 'How long does it take to repay a working capital loan?', a: 'Repayment timelines are estimated, not fixed — they depend on your daily sales volume. Typical estimated repayment periods range from 3–18 months. Higher daily revenue means faster repayment. The retrieved percentage is fixed, so slower months extend repayment and faster months shorten it.' },
+      { q: 'What is the minimum revenue needed to qualify?', a: 'Most working capital lenders require at least $10,000/month in business revenue. Some lenders will work with businesses doing $7,500–$10,000/month at slightly higher rates. The stronger your revenue, the better the terms you\'ll be offered.' },
     ],
     related: ['term-loans', 'lines-of-credit', 'invoice-financing'],
-    schema: { '@type': 'FinancialProduct', name: 'Working Capital Loans', description: 'Fast working capital financing from $5K to $750K based on daily business revenue.' },
+    schema: { '@type': 'FinancialProduct', name: 'Working Capital Loan', description: 'Working capital financing from $5K to $750K based on daily business revenue.' },
   },
 }
 
@@ -385,6 +385,7 @@ export default function ServicePage({ params }: { params: { slug: string } }) {
           <div className="absolute inset-0 opacity-[0.04]" style={{ backgroundImage: 'radial-gradient(circle, white 1px, transparent 1px)', backgroundSize: '28px 28px' }} />
           <div className="absolute top-0 right-0 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/3" />
           <div className="relative max-w-5xl mx-auto">
+            {/* Breadcrumb */}
             <div className="flex items-center gap-2 text-xs text-slate-500 mb-6">
               <Link href="/" className="hover:text-slate-300 transition-colors">Home</Link>
               <span>›</span>
@@ -411,6 +412,8 @@ export default function ServicePage({ params }: { params: { slug: string } }) {
                   </Link>
                 </div>
               </div>
+
+              {/* Quick stats */}
               <div className="bg-white/8 backdrop-blur-sm border border-white/15 rounded-2xl p-6">
                 <div className="text-xs font-bold tracking-widest uppercase text-slate-400 mb-4">{data.name} — At a Glance</div>
                 <div className="space-y-3">
@@ -545,7 +548,7 @@ export default function ServicePage({ params }: { params: { slug: string } }) {
           </div>
         </section>
 
-        {/* Related */}
+        {/* Related services */}
         <section className="py-12 bg-white px-5">
           <div className="max-w-5xl mx-auto">
             <h3 className="font-display font-bold text-lg text-slate-900 mb-6">Other funding products</h3>
