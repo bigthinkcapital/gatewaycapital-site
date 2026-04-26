@@ -1,58 +1,112 @@
 'use client'
 import { useState, useEffect, useRef } from 'react'
-import Link from 'next/link'
 
-const STORIES = [
-  { icon: '🚚', text: 'A trucking company in Texas just received', amount: '$500,000' },
-  { icon: '🏗️', text: 'A construction contractor in Florida was funded', amount: '$250,000' },
-  { icon: '🍕', text: 'A restaurant group in New York secured', amount: '$85,000' },
-  { icon: '🏥', text: 'A healthcare practice in California received', amount: '$400,000' },
-  { icon: '🛒', text: 'An e-commerce brand in Georgia got funded', amount: '$120,000' },
-  { icon: '⚙️', text: 'A manufacturer in Ohio was approved for', amount: '$750,000' },
-  { icon: '🔨', text: 'A roofing contractor in Arizona secured', amount: '$95,000' },
-  { icon: '💊', text: 'A pharmacy in Illinois received', amount: '$300,000' },
-  { icon: '🚛', text: 'A logistics company in Tennessee was funded', amount: '$1,200,000' },
-  { icon: '🍔', text: 'A franchise owner in Nevada received', amount: '$180,000' },
+const PROFILES = [
+  { industry: 'Restaurant Owner', amount: '$85,000', time: '24 hrs' },
+  { industry: 'HVAC Contractor', amount: '$210,000', time: '48 hrs' },
+  { industry: 'Medical Practice', amount: '$450,000', time: '3 days' },
+  { industry: 'Retail Store', amount: '$55,000', time: '24 hrs' },
+  { industry: 'Trucking Company', amount: '$175,000', time: '48 hrs' },
+  { industry: 'Dental Office', amount: '$320,000', time: '3 days' },
+  { industry: 'Franchise Owner', amount: '$500,000', time: '5 days' },
+  { industry: 'E-commerce Brand', amount: '$95,000', time: '24 hrs' },
 ]
 
+const TOTAL_SECONDS = 10 * 60 // 10-minute window
+
 export default function SmartBar() {
-  const [idx, setIdx] = useState(0)
   const [visible, setVisible] = useState(true)
-  const lastScrollY = useRef(0)
+  const [profileIdx, setProfileIdx] = useState(0)
+  const [fading, setFading] = useState(false)
+  const [seconds, setSeconds] = useState(TOTAL_SECONDS)
+  const [urgent, setUrgent] = useState(false)
+  const lastScroll = useRef(0)
 
-  useEffect(() => {
-    const id = setInterval(() => setIdx(i => (i + 1) % STORIES.length), 3800)
-    return () => clearInterval(id)
-  }, [])
-
+  // Hide bar on scroll down
   useEffect(() => {
     const onScroll = () => {
-      const y = window.scrollY
-      setVisible(y < lastScrollY.current || y < 80)
-      lastScrollY.current = y
+      const current = window.scrollY
+      setVisible(current < lastScroll.current || current < 10)
+      lastScroll.current = current
     }
     window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
-  const story = STORIES[idx]
+  // Rotate profiles every 3.5s
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setFading(true)
+      setTimeout(() => {
+        setProfileIdx(i => (i + 1) % PROFILES.length)
+        setFading(false)
+      }, 400)
+    }, 3500)
+    return () => clearInterval(interval)
+  }, [])
+
+  // Countdown timer
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setSeconds(s => {
+        if (s <= 0) return TOTAL_SECONDS // reset
+        const next = s - 1
+        setUrgent(next < 60)
+        return next
+      })
+    }, 1000)
+    return () => clearInterval(interval)
+  }, [])
+
+  const mins = Math.floor(seconds / 60)
+  const secs = seconds % 60
+  const timeStr = `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`
+  const profile = PROFILES[profileIdx]
 
   return (
     <div
-      className={`fixed top-0 left-0 right-0 z-50 h-9 flex items-center justify-center gap-2 px-4 bg-slate-900 transition-transform duration-300 ${
-        visible ? 'translate-y-0' : '-translate-y-full'
-      }`}
+      className="fixed left-0 right-0 z-50 h-9 flex items-center justify-between px-4 transition-transform duration-300"
+      style={{
+        top: 0,
+        backgroundColor: '#1e3a6e',
+        transform: visible ? 'translateY(0)' : 'translateY(-100%)',
+      }}
     >
-      <span className="text-base flex-shrink-0">{story.icon}</span>
-      <span className="text-slate-400 text-xs truncate hidden sm:inline">{story.text}</span>
-      <span className="text-yellow-400 text-xs font-bold flex-shrink-0">{story.amount}</span>
-      <span className="text-slate-600 hidden sm:inline text-xs">·</span>
-      <Link
-        href="/apply"
-        className="text-blue-400 text-xs font-semibold hover:text-blue-300 transition-colors flex-shrink-0 hidden sm:inline"
+      {/* Left — rotating pre-qual profile */}
+      <div
+        className="flex items-center gap-2 text-xs font-medium transition-opacity duration-400"
+        style={{ opacity: fading ? 0 : 1 }}
       >
-        Apply Now →
-      </Link>
+        <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse flex-shrink-0" />
+        <span className="text-white/70">Just pre-qualified:</span>
+        <span className="text-white font-semibold">{profile.industry}</span>
+        <span className="text-white/50 hidden sm:inline">·</span>
+        <span className="text-emerald-300 font-bold hidden sm:inline">{profile.amount}</span>
+        <span className="text-white/50 hidden sm:inline">·</span>
+        <span className="text-white/60 hidden sm:inline">funded in {profile.time}</span>
+      </div>
+
+      {/* Right — countdown */}
+      <div className="flex items-center gap-2">
+        <span className="text-white/60 text-xs hidden sm:inline">Offers expire in</span>
+        <span
+          className="text-xs font-bold tabular-nums px-2 py-0.5 rounded"
+          style={{
+            backgroundColor: urgent ? '#ef4444' : 'rgba(255,255,255,0.15)',
+            color: urgent ? 'white' : '#fbbf24',
+            transition: 'background-color 0.5s',
+          }}
+        >
+          {timeStr}
+        </span>
+        <a
+          href="/apply"
+          className="hidden sm:inline text-xs font-bold px-3 py-1 rounded-full transition-opacity hover:opacity-90"
+          style={{ backgroundColor: '#2563eb', color: 'white' }}
+        >
+          Apply Free →
+        </a>
+      </div>
     </div>
   )
 }
