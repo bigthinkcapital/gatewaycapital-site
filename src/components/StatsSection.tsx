@@ -25,7 +25,7 @@ export default function StatsSection() {
           <Stat prefix="$" target={500} suffix="M+" label="Capital Deployed" />
           <Stat target={3200} suffix="+" label="Businesses Funded" />
           <Stat target={24} suffix="hr" label="Avg. Funding Time" />
-          <Stat target={4.8} suffix="★" label="Trustpilot Rating" decimals={1} />
+          <Stat target={6} suffix="+" label="Funding Products" />
         </div>
       </div>
     </section>
