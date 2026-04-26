@@ -1,63 +1,116 @@
 import Link from 'next/link'
+import { LogoHorizontal } from '@/components/GatewayLogo'
+
+const SERVICES = [
+  { name: 'SBA Loans', slug: 'sba-loans' },
+  { name: 'Term Loans', slug: 'term-loans' },
+  { name: 'Lines of Credit', slug: 'lines-of-credit' },
+  { name: 'Equipment Financing', slug: 'equipment-financing' },
+  { name: 'Invoice Financing', slug: 'invoice-financing' },
+  { name: 'Working Capital', slug: 'working-capital' },
+]
+
+const INDUSTRIES = [
+  { name: 'Restaurant', slug: 'restaurant' },
+  { name: 'Construction', slug: 'construction' },
+  { name: 'Healthcare', slug: 'healthcare' },
+  { name: 'Retail', slug: 'retail' },
+  { name: 'Transportation', slug: 'transportation' },
+  { name: 'Technology', slug: 'technology' },
+  { name: 'Franchise', slug: 'franchise' },
+  { name: 'Real Estate', slug: 'real-estate' },
+]
 
 export default function Footer() {
   return (
-    <footer className="bg-blue-950 text-white">
-      <div className="max-w-6xl mx-auto px-5 py-16">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
+    <footer className="bg-slate-900 text-slate-300">
+      <div className="max-w-6xl mx-auto px-5 pt-14 pb-8">
 
-          {/* Brand */}
-          <div>
-            <Link href="/" className="inline-block mb-4">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src="/gateway-capital-logo-transparent.png"
-                alt="Gateway Capital"
-                className="h-10 w-auto object-contain brightness-0 invert"
-                style={{ maxWidth: '200px' }}
-              />
+        {/* Top grid */}
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-10 mb-12">
+
+          {/* Brand column */}
+          <div className="lg:col-span-1">
+            <Link href="/" className="group inline-block mb-4">
+              <LogoHorizontal dark size={40} />
             </Link>
-            <p className="text-sm text-blue-200/60 leading-relaxed max-w-xs">
-              Your gateway to business funding. We connect small businesses to the right capital — fast, transparent, and on your terms.
+            <p className="text-sm text-slate-400 leading-relaxed mt-4">
+              One application. Multiple lenders compete for your business. You pick the best offer.
             </p>
+            <div className="flex items-center gap-2 mt-5">
+              <span className="w-2 h-2 bg-emerald-400 rounded-full animate-pulse" />
+              <span className="text-xs text-slate-400">Lenders reviewing applications now</span>
+            </div>
           </div>
 
-          {/* Products */}
+          {/* Services */}
           <div>
-            <h4 className="text-xs font-bold tracking-widest uppercase text-blue-400 mb-4">Funding Products</h4>
+            <div className="text-xs font-bold uppercase tracking-widest text-slate-500 mb-4">Funding Products</div>
             <ul className="space-y-2.5">
-              {['SBA Loans', 'Term Loans', 'Lines of Credit', 'Equipment Financing', 'Invoice Financing', 'Merchant Cash Advance'].map(p => (
-                <li key={p}>
-                  <Link href="/apply" className="text-sm text-blue-200/60 hover:text-white transition-colors">{p}</Link>
+              {SERVICES.map(s => (
+                <li key={s.slug}>
+                  <Link href={`/services/${s.slug}`} className="text-sm text-slate-400 hover:text-white transition-colors">
+                    {s.name}
+                  </Link>
                 </li>
               ))}
             </ul>
           </div>
 
-          {/* CTA */}
+          {/* Industries */}
           <div>
-            <h4 className="text-xs font-bold tracking-widest uppercase text-blue-400 mb-4">Get Funded</h4>
-            <p className="text-sm text-blue-200/60 mb-5 leading-relaxed">
-              Apply in 2 minutes. No hard credit pull. Decision within 24 hours.
-            </p>
+            <div className="text-xs font-bold uppercase tracking-widest text-slate-500 mb-4">Industries</div>
+            <ul className="space-y-2.5">
+              {INDUSTRIES.map(i => (
+                <li key={i.slug}>
+                  <Link href={`/industries/${i.slug}`} className="text-sm text-slate-400 hover:text-white transition-colors">
+                    {i.name}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* CTA / contact */}
+          <div>
+            <div className="text-xs font-bold uppercase tracking-widest text-slate-500 mb-4">Get Funded</div>
             <Link
               href="/apply"
-              className="inline-flex items-center gap-2 text-white text-sm font-semibold px-5 py-3 rounded-lg transition-all hover:shadow-lg"
-              style={{ background: '#1B3F7A' }}
+              className="inline-flex items-center gap-2 text-white font-bold text-sm px-5 py-3 rounded-xl transition-all hover:opacity-90"
+              style={{ backgroundColor: '#1e3a6e' }}
             >
-              Start Application →
+              Apply Now — Free →
             </Link>
+            <p className="text-xs text-slate-500 mt-3 leading-relaxed">
+              No hard credit pull · 2-minute application · Funded in as little as 24 hours
+            </p>
+            <div className="mt-6 space-y-2">
+              <div className="text-xs font-bold uppercase tracking-widest text-slate-500">Contact</div>
+              <a href="mailto:info@gatewaycapitalfunding.com" className="text-sm text-slate-400 hover:text-white transition-colors block">
+                info@gatewaycapitalfunding.com
+              </a>
+            </div>
           </div>
         </div>
 
-        <div className="border-t border-blue-900 pt-8 flex flex-col md:flex-row items-center justify-between gap-4">
-          <p className="text-xs text-blue-200/40">
+        {/* Divider */}
+        <div className="border-t border-slate-800 pt-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+          <p className="text-xs text-slate-600">
             © {new Date().getFullYear()} Gateway Capital. All rights reserved.
           </p>
-          <p className="text-xs text-blue-200/40 text-center md:text-right max-w-lg">
-            Gateway Capital is a lending marketplace. All loans subject to credit approval. Terms and conditions apply. Not available in all states.
-          </p>
+          <div className="flex items-center gap-5">
+            {['Privacy Policy', 'Terms of Service', 'Disclosures'].map(item => (
+              <Link key={item} href="#" className="text-xs text-slate-600 hover:text-slate-400 transition-colors">
+                {item}
+              </Link>
+            ))}
+          </div>
         </div>
+
+        {/* Disclaimer */}
+        <p className="text-[10px] text-slate-700 leading-relaxed mt-5">
+          Gateway Capital is a lending marketplace. We connect businesses with third-party lenders and brokers. We are not a direct lender for all products. Loan approval, terms, and rates are determined by individual lenders based on creditworthiness and other factors. Not all applicants will qualify.
+        </p>
       </div>
     </footer>
   )
