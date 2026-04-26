@@ -1,27 +1,22 @@
 /**
- * GatewayLogo — shared brand component
- * Faithful recreation of the Gateway Capital mark:
- *   - Serif G letterform in navy, open on the right with a crossbar shelf
- *   - Open door panel (left side, swung open) inside the G
- *   - Rising bar chart columns (center-right) through the doorway
- *   - Curved road/path sweeping in from the bottom
- *   - No circular/square background — mark sits on whatever bg is behind it
+ * GatewayLogo — shared brand components
  *
  * Exports:
- *   <LogoMark size={n} />                    — mark only, square, transparent bg
- *   <LogoHorizontal dark={bool} size={n} />  — mark + wordmark lockup
+ *   <LogoMark size={n} />            — mark only, transparent bg (nav, footer standalone)
+ *   <LogoHorizontal dark={bool} />   — mark + wordmark (nav light, footer dark)
  */
 
 /* ─────────────────────────────────────────────────────────────────────────
-   Colour palette
+   COLOR PALETTE (matching the uploaded brand mark)
    ───────────────────────────────────────────────────────────────────────── */
-const NAVY   = '#1e3a6e'
-const MID    = '#4a6fa5'   // door panel, road highlight
-const LIGHT  = '#8aa4c8'   // bar columns, road fill
+const NAVY   = '#1e3a6e'   // main G body
+const MID    = '#4a6fa5'   // door panel, bar midtones
+const LIGHT  = '#8aa4c8'   // lighter bar accents, road highlight
 const WHITE  = '#ffffff'
+const ROAD_STRIPE = '#b0bfd4' // road center stripe
 
 /* ─────────────────────────────────────────────────────────────────────────
-   MARK — transparent background, square viewBox 0 0 200 200
+   MARK — transparent background, scales cleanly at any size
    ───────────────────────────────────────────────────────────────────────── */
 export function LogoMark({ size = 48 }: { size?: number }) {
   return (
@@ -33,123 +28,133 @@ export function LogoMark({ size = 48 }: { size?: number }) {
       xmlns="http://www.w3.org/2000/svg"
       aria-hidden="true"
     >
-      {/* ══════════════════════════════════════════════════════
-          OUTER G LETTERFORM — thick serif strokes, navy
-          Top arc curves from upper-right down and around.
-          Bottom closes with the serif foot + crossbar shelf.
-          ══════════════════════════════════════════════════════ */}
+      {/* ── OUTER G ARC (full serif G shape) ──────────────────────────── */}
+      {/*
+          The G is drawn as a single filled path:
+          - Starts at the top-right of the C-opening (before the crossbar)
+          - Sweeps counter-clockwise around the full outer arc
+          - Returns clockwise along the inner arc
+          - Ends with the horizontal crossbar shelf on the right
 
-      {/* Top stroke — thick arc, open right */}
+          ViewBox 200×200, center ~(100,105)
+      */}
       <path
         d={`
-          M 155 32
-          C 138 18, 112 12, 90 14
-          C 50 18, 18 52, 18 96
-          C 18 142, 50 176, 90 180
-          C 118 182, 144 170, 158 150
-          L 158 108
-          L 108 108
-          L 108 124
-          L 142 124
+          M 158 46
+          C 141 28, 120 18, 96 18
+          C 48 18, 10 56, 10 104
+          C 10 152, 48 190, 96 190
+          C 124 190, 148 177, 162 156
+          L 162 100
+          L 108 100
+          L 108 118
+          L 142 118
           L 142 148
-          C 130 160, 114 165, 96 164
-          C 62 163, 38 136, 38 98
-          C 38 60, 62 34, 96 32
-          C 112 31, 126 36, 138 46
+          C 128 162, 114 168, 96 168
+          C 61 168, 34 142, 34 104
+          C 34 66, 61 40, 96 40
+          C 114 40, 128 47, 140 60
           Z
         `}
         fill={NAVY}
       />
 
-      {/* Serif foot — bottom right of G crossbar */}
-      <rect x="104" y="152" width="56" height="18" rx="3" fill={NAVY} />
-      {/* Serif cap — top right where arc terminates */}
-      <rect x="128" y="14" width="32" height="18" rx="3" fill={NAVY} />
-
-      {/* ══════════════════════════════════════════════════════
-          DOOR FRAME — sits inside the G opening
-          ══════════════════════════════════════════════════════ */}
+      {/* ── DOOR FRAME inside the G opening ───────────────────────────── */}
       {/* Left door post */}
-      <rect x="62"  y="58" width="10" height="88" rx="2" fill={MID} />
+      <rect x="72" y="68" width="10" height="72" rx="2" fill={MID} />
       {/* Right door post */}
-      <rect x="106" y="58" width="10" height="88" rx="2" fill={MID} />
+      <rect x="118" y="68" width="10" height="72" rx="2" fill={MID} />
       {/* Top lintel */}
-      <rect x="62"  y="56" width="54" height="10" rx="2" fill={MID} />
+      <rect x="72" y="65" width="56" height="10" rx="2" fill={MID} />
+      {/* Door opening gap (white light) */}
+      <rect x="82" y="75" width="36" height="65" rx="1" fill={WHITE} opacity="0.12" />
 
-      {/* ══════════════════════════════════════════════════════
-          OPEN DOOR PANEL — swung to the left
-          ══════════════════════════════════════════════════════ */}
-      <rect x="63" y="66" width="30" height="75" rx="2" fill={MID} opacity="0.85" />
-      {/* Door knob */}
-      <circle cx="88" cy="106" r="3.5" fill={WHITE} />
-
-      {/* ══════════════════════════════════════════════════════
-          RISING BAR COLUMNS — through the doorway, mid-right
-          4 columns, shortest left to tallest right then dip
-          ══════════════════════════════════════════════════════ */}
-      <rect x="100" y="108" width="11" height="38" rx="1.5" fill={LIGHT} opacity="0.8" />
-      <rect x="114" y="92"  width="11" height="54" rx="1.5" fill={LIGHT} />
-      <rect x="128" y="78"  width="11" height="68" rx="1.5" fill={LIGHT} opacity="0.9" />
-      <rect x="142" y="88"  width="11" height="58" rx="1.5" fill={LIGHT} opacity="0.75" />
-
-      {/* ══════════════════════════════════════════════════════
-          CURVED ROAD — sweeping perspective path at bottom
-          ══════════════════════════════════════════════════════ */}
-      {/* Road body — wide at bottom, narrows toward door */}
+      {/* ── OPEN DOOR PANEL (swung open to the left, foreshortened) ───── */}
       <path
-        d="M 22 190 Q 60 165, 78 148 Q 86 140, 86 148 L 90 148 Q 90 136, 98 130 L 98 146 Q 106 136, 108 148 L 114 148 Q 106 140, 120 155 Q 148 172, 178 190 Z"
-        fill={LIGHT}
-        opacity="0.7"
+        d={`M 82 75 L 68 80 L 68 138 L 82 140 Z`}
+        fill={MID}
+        opacity="0.9"
+      />
+      {/* Door knob */}
+      <circle cx="76" cy="110" r="3" fill={NAVY} opacity="0.7" />
+
+      {/* ── RISING BAR BUILDINGS (through doorway, perspective) ─────────── */}
+      {/* Bar 1 — shortest left */}
+      <rect x="92"  y="96"  width="12" height="44" rx="1.5" fill={MID}   opacity="0.85" />
+      {/* Bar 2 — tallest center */}
+      <rect x="107" y="82"  width="13" height="58" rx="1.5" fill={LIGHT} opacity="0.95" />
+      {/* Bar 3 — medium right */}
+      <rect x="123" y="90"  width="11" height="50" rx="1.5" fill={MID}   opacity="0.80" />
+      {/* Bar 4 — shortest far right */}
+      <rect x="137" y="98"  width="9"  height="42" rx="1.5" fill={LIGHT} opacity="0.65" />
+
+      {/* Subtle light streak on tallest bar */}
+      <rect x="108" y="83" width="4" height="56" rx="1" fill={WHITE} opacity="0.25" />
+
+      {/* ── CURVED ROAD PATH flowing out from base of G ──────────────── */}
+      {/* Road outer edge */}
+      <path
+        d={`M 38 185 Q 75 165, 95 148 Q 115 132, 118 140`}
+        stroke={NAVY}
+        strokeWidth="7"
+        strokeLinecap="round"
+        fill="none"
+      />
+      {/* Road inner lighter band */}
+      <path
+        d={`M 44 183 Q 78 164, 97 149 Q 112 136, 114 140`}
+        stroke={ROAD_STRIPE}
+        strokeWidth="3.5"
+        strokeLinecap="round"
+        fill="none"
       />
       {/* Road highlight stripe */}
       <path
-        d="M 58 190 Q 76 168, 84 148 L 90 148 Q 84 166, 72 190 Z"
-        fill={WHITE}
-        opacity="0.55"
-      />
-      {/* Road edge curves */}
-      <path
-        d="M 22 192 Q 68 162, 84 144"
-        stroke={NAVY}
-        strokeWidth="3.5"
+        d={`M 50 181 Q 82 163, 100 151 Q 110 140, 112 141`}
+        stroke={WHITE}
+        strokeWidth="1.5"
         strokeLinecap="round"
         fill="none"
-        opacity="0.6"
+        opacity="0.5"
       />
+
+      {/* Road left edge sweep */}
       <path
-        d="M 178 192 Q 130 162, 112 144"
+        d={`M 30 188 Q 68 170, 90 154 Q 106 143, 108 146`}
         stroke={NAVY}
-        strokeWidth="3.5"
+        strokeWidth="5"
         strokeLinecap="round"
         fill="none"
-        opacity="0.6"
+        opacity="0.4"
       />
     </svg>
   )
 }
 
 /* ─────────────────────────────────────────────────────────────────────────
-   HORIZONTAL LOCKUP
+   HORIZONTAL LOCKUP — mark + wordmark
+   dark=false  → navy/blue text (nav on white bg)
+   dark=true   → white text (footer on dark bg)
    ───────────────────────────────────────────────────────────────────────── */
 interface LogoHorizontalProps {
   dark?: boolean
   size?: number
 }
 
-export function LogoHorizontal({ dark = false, size = 46 }: LogoHorizontalProps) {
-  const primary = dark ? '#ffffff' : NAVY
+export function LogoHorizontal({ dark = false, size = 44 }: LogoHorizontalProps) {
+  const primary = dark ? WHITE  : NAVY
   const accent  = dark ? '#93c5fd' : '#2563eb'
   const sub     = dark ? '#94a3b8' : '#64748b'
 
   return (
-    <span className="flex items-center gap-3 group">
-      <span className="flex-shrink-0 transition-transform group-hover:scale-105 duration-200">
+    <span className="flex items-center gap-3">
+      <span className="flex-shrink-0">
         <LogoMark size={size} />
       </span>
       <span className="leading-none select-none">
         <span
           className="block font-extrabold tracking-tight leading-none"
-          style={{ fontFamily: 'var(--font-sora, ui-serif)', fontSize: '1.2rem', color: primary }}
+          style={{ fontSize: '1.15rem', color: primary }}
         >
           Gateway{' '}
           <span style={{ color: accent }}>Capital</span>
