@@ -1,40 +1,13 @@
-<svg width="32" height="32" viewBox="0 0 500 500" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <!-- Navy background square with rounded corners -->
-  <rect width="500" height="500" rx="80" fill="#1e3a6e"/>
-
-  <!-- G outer fill -->
-  <path d="M390 80 C360 40 310 18 250 18 C140 18 52 106 52 220 C52 334 140 422 250 422 C310 422 362 398 395 358 L395 242 L248 242 L248 294 L338 294 L338 346 C318 366 286 378 250 378 C164 378 98 312 98 220 C98 128 164 62 250 62 C290 62 324 76 348 102 Z" fill="white"/>
-
-  <!-- G inner void -->
-  <path d="M390 80 C362 48 314 26 250 26 C148 26 68 108 68 220 C68 332 148 414 250 414 C308 414 358 392 390 354 L390 258 L256 258 L256 302 L336 302 L336 348 C314 372 284 386 250 386 C160 386 90 314 90 220 C90 126 160 54 250 54 C292 54 328 70 354 98 Z" fill="#1e3a6e"/>
-
-  <!-- Horizontal bar fill -->
-  <rect x="248" y="242" width="147" height="52" rx="4" fill="white"/>
-  <rect x="248" y="258" width="143" height="36" rx="3" fill="#1e3a6e"/>
-  <rect x="338" y="258" width="52" height="88" rx="4" fill="white"/>
-  <rect x="338" y="272" width="40" height="74" rx="3" fill="#1e3a6e"/>
-
-  <!-- J tail -->
-  <path d="M338 330 C338 370 318 410 274 430 C258 437 240 440 220 436 C220 436 210 434 200 428" stroke="white" stroke-width="50" stroke-linecap="round" fill="none"/>
-  <path d="M338 330 C338 370 318 410 274 430 C258 437 240 440 220 436 C220 436 210 434 200 428" stroke="#1e3a6e" stroke-width="34" stroke-linecap="round" fill="none"/>
-
-  <!-- Door frame -->
-  <rect x="148" y="148" width="22" height="200" rx="4" fill="#1e3a6e"/>
-  <rect x="228" y="148" width="16" height="200" rx="4" fill="#6b8cba"/>
-  <rect x="148" y="148" width="100" height="22" rx="4" fill="#1e3a6e"/>
-
-  <!-- Door panel -->
-  <rect x="150" y="170" width="72" height="174" rx="3" fill="#6b8cba" opacity="0.85"/>
-  <circle cx="210" cy="262" r="9" fill="#1e3a6e"/>
-
-  <!-- Bar columns -->
-  <rect x="248" y="268" width="24" height="80"  rx="2" fill="#6b8cba" opacity="0.8"/>
-  <rect x="278" y="240" width="24" height="108" rx="2" fill="#6b8cba" opacity="0.9"/>
-  <rect x="308" y="210" width="26" height="138" rx="2" fill="#a8bdd4"/>
-  <rect x="340" y="232" width="24" height="116" rx="2" fill="#6b8cba" opacity="0.85"/>
-  <rect x="370" y="258" width="22" height="90"  rx="2" fill="#6b8cba" opacity="0.75"/>
-
-  <!-- Road curves -->
-  <path d="M148 348 Q172 390 130 460 Q112 490 90 495" stroke="white" stroke-width="14" stroke-linecap="round" fill="none" opacity="0.6"/>
-  <path d="M244 348 Q260 392 290 445 Q310 478 340 490" stroke="white" stroke-width="14" stroke-linecap="round" fill="none" opacity="0.6"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <rect width="32" height="32" rx="5" fill="#1e3369"/>
+  <path fill="white" d="M 25.5 5 C 23 3 19.5 2 16 2 C 8 2 2 8 2 16 C 2 24 8 30 16 30 C 20 30 23.5 28.5 26 26 L 26 15.5 L 15.5 15.5 L 15.5 19 L 22.5 19 L 22.5 24 C 21 25.5 18.5 26.5 16 26.5 C 10 26.5 6 22 6 16 C 6 10 10 5.5 16 5.5 C 18.5 5.5 21 6.5 22.5 8 Z"/>
+  <ellipse cx="13" cy="16" rx="7" ry="9.5" fill="#1e3369"/>
+  <rect x="15.5" y="15.5" width="10.5" height="3.5" fill="white"/>
+  <rect x="22.5" y="15.5" width="3.5" height="12" fill="white"/>
+  <rect x="11" y="9" width="1.2" height="14" rx="0.3" fill="#6d8fbc"/>
+  <rect x="18" y="9" width="1.2" height="14" rx="0.3" fill="#6d8fbc"/>
+  <rect x="11" y="9" width="8.5" height="1.2" rx="0.3" fill="#6d8fbc"/>
+  <rect x="12.2" y="10" width="5.5" height="12.5" rx="0.5" fill="#2b4878"/>
+  <rect x="19.5" y="17" width="1.5" height="5" rx="0.3" fill="#7ea3cc"/>
+  <rect x="21.5" y="15.5" width="1.5" height="6.5" rx="0.3" fill="#7ea3cc"/>
 </svg>
