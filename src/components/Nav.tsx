@@ -19,16 +19,16 @@ const SERVICES = [
   { name: 'Lines of Credit', slug: 'lines-of-credit', icon: '💳' },
   { name: 'Equipment Financing', slug: 'equipment-financing', icon: '⚙️' },
   { name: 'Invoice Financing', slug: 'invoice-financing', icon: '📋' },
-  { name: 'Merchant Cash Advance', slug: 'merchant-cash-advance', icon: '⚡' },
+  { name: 'Working Capital', slug: 'working-capital', icon: '⚡' },
 ]
+
+type DropdownKey = 'services' | 'industries' | null
 
 export default function Nav() {
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
-  const [industriesOpen, setIndustriesOpen] = useState(false)
-  const [servicesOpen, setServicesOpen] = useState(false)
-  const industriesRef = useRef<HTMLDivElement>(null)
-  const servicesRef = useRef<HTMLDivElement>(null)
+  const [activeDropdown, setActiveDropdown] = useState<DropdownKey>(null)
+  const navRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20)
@@ -38,24 +38,24 @@ export default function Nav() {
 
   useEffect(() => {
     const handler = (e: MouseEvent) => {
-      if (industriesRef.current && !industriesRef.current.contains(e.target as Node)) setIndustriesOpen(false)
-      if (servicesRef.current && !servicesRef.current.contains(e.target as Node)) setServicesOpen(false)
+      if (navRef.current && !navRef.current.contains(e.target as Node)) {
+        setActiveDropdown(null)
+      }
     }
     document.addEventListener('mousedown', handler)
     return () => document.removeEventListener('mousedown', handler)
   }, [])
 
-  const DropdownChevron = ({ open }: { open: boolean }) => (
-    <svg width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"
-      className={`transition-transform duration-200 ${open ? 'rotate-180' : ''}`}>
-      <path d="M3 5l4 4 4-4"/>
-    </svg>
-  )
+  const toggle = (key: DropdownKey) =>
+    setActiveDropdown(prev => (prev === key ? null : key))
 
   return (
     <nav
+      ref={navRef}
       className={`fixed left-0 right-0 z-40 transition-all duration-300 ${
-        scrolled ? 'bg-white/95 backdrop-blur-md shadow-sm border-b border-slate-200' : 'bg-white/90 backdrop-blur-sm border-b border-slate-100'
+        scrolled
+          ? 'bg-white/95 backdrop-blur-md shadow-sm border-b border-slate-200'
+          : 'bg-white/90 backdrop-blur-sm border-b border-slate-100'
       }`}
       style={{ top: '36px' }}
     >
@@ -84,26 +84,34 @@ export default function Nav() {
         <div className="hidden md:flex items-center gap-6">
 
           {/* Services dropdown */}
-          <div className="relative" ref={servicesRef}>
+          <div className="relative">
             <button
-              onClick={() => { setServicesOpen(!servicesOpen); setIndustriesOpen(false) }}
+              onClick={() => toggle('services')}
               className="flex items-center gap-1 text-sm font-medium text-slate-500 hover:text-slate-900 transition-colors"
             >
-              Services <DropdownChevron open={servicesOpen} />
+              Services
+              <svg width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"
+                className={`transition-transform duration-200 ${activeDropdown === 'services' ? 'rotate-180' : ''}`}>
+                <path d="M3 5l4 4 4-4"/>
+              </svg>
             </button>
-            {servicesOpen && (
+
+            {activeDropdown === 'services' && (
               <div className="absolute top-full left-1/2 -translate-x-1/2 mt-3 w-64 bg-white rounded-2xl border border-slate-200 shadow-xl shadow-slate-900/10 overflow-hidden z-50">
                 <div className="p-2">
-                  <Link href="/services" className="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-blue-50 transition-colors group mb-1" onClick={() => setServicesOpen(false)}>
+                  <Link href="/services" className="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-blue-50 transition-colors group mb-1" onClick={() => setActiveDropdown(null)}>
                     <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center text-sm flex-shrink-0">💼</div>
                     <div>
-                      <div className="text-sm font-bold text-slate-900 group-hover:text-blue-600 transition-colors">All Products</div>
-                      <div className="text-xs text-slate-400">View all funding products</div>
+                      <div className="text-sm font-bold text-slate-900 group-hover:text-blue-600 transition-colors">All Services</div>
+                      <div className="text-xs text-slate-400">View every funding product</div>
                     </div>
                   </Link>
                   <div className="border-t border-slate-100 my-2" />
                   {SERVICES.map(s => (
-                    <Link key={s.slug} href={`/services/${s.slug}`} className="flex items-center gap-3 px-4 py-2.5 rounded-xl hover:bg-slate-50 transition-colors group" onClick={() => setServicesOpen(false)}>
+                    <Link key={s.slug} href={`/services/${s.slug}`}
+                      className="flex items-center gap-3 px-4 py-2.5 rounded-xl hover:bg-slate-50 transition-colors group"
+                      onClick={() => setActiveDropdown(null)}
+                    >
                       <span className="text-base w-6 text-center flex-shrink-0">{s.icon}</span>
                       <span className="text-sm font-medium text-slate-700 group-hover:text-slate-900 transition-colors">{s.name}</span>
                     </Link>
@@ -114,17 +122,22 @@ export default function Nav() {
           </div>
 
           {/* Industries dropdown */}
-          <div className="relative" ref={industriesRef}>
+          <div className="relative">
             <button
-              onClick={() => { setIndustriesOpen(!industriesOpen); setServicesOpen(false) }}
+              onClick={() => toggle('industries')}
               className="flex items-center gap-1 text-sm font-medium text-slate-500 hover:text-slate-900 transition-colors"
             >
-              Industries <DropdownChevron open={industriesOpen} />
+              Industries
+              <svg width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"
+                className={`transition-transform duration-200 ${activeDropdown === 'industries' ? 'rotate-180' : ''}`}>
+                <path d="M3 5l4 4 4-4"/>
+              </svg>
             </button>
-            {industriesOpen && (
+
+            {activeDropdown === 'industries' && (
               <div className="absolute top-full left-1/2 -translate-x-1/2 mt-3 w-72 bg-white rounded-2xl border border-slate-200 shadow-xl shadow-slate-900/10 overflow-hidden z-50">
                 <div className="p-2">
-                  <Link href="/industries" className="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-blue-50 transition-colors group mb-1" onClick={() => setIndustriesOpen(false)}>
+                  <Link href="/industries" className="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-blue-50 transition-colors group mb-1" onClick={() => setActiveDropdown(null)}>
                     <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center text-sm flex-shrink-0">🏭</div>
                     <div>
                       <div className="text-sm font-bold text-slate-900 group-hover:text-blue-600 transition-colors">All Industries</div>
@@ -133,7 +146,10 @@ export default function Nav() {
                   </Link>
                   <div className="border-t border-slate-100 my-2" />
                   {INDUSTRIES.map(ind => (
-                    <Link key={ind.slug} href={`/industries/${ind.slug}`} className="flex items-center gap-3 px-4 py-2.5 rounded-xl hover:bg-slate-50 transition-colors group" onClick={() => setIndustriesOpen(false)}>
+                    <Link key={ind.slug} href={`/industries/${ind.slug}`}
+                      className="flex items-center gap-3 px-4 py-2.5 rounded-xl hover:bg-slate-50 transition-colors group"
+                      onClick={() => setActiveDropdown(null)}
+                    >
                       <span className="text-base w-6 text-center flex-shrink-0">{ind.icon}</span>
                       <span className="text-sm font-medium text-slate-700 group-hover:text-slate-900 transition-colors">{ind.name}</span>
                     </Link>
@@ -143,8 +159,12 @@ export default function Nav() {
             )}
           </div>
 
-          <Link href="/#how-it-works" className="text-sm font-medium text-slate-500 hover:text-slate-900 transition-colors">How It Works</Link>
-          <Link href="/#why-us" className="text-sm font-medium text-slate-500 hover:text-slate-900 transition-colors">Why Gateway</Link>
+          <Link href="/#how-it-works" className="text-sm font-medium text-slate-500 hover:text-slate-900 transition-colors">
+            How It Works
+          </Link>
+          <Link href="/#why-us" className="text-sm font-medium text-slate-500 hover:text-slate-900 transition-colors">
+            Why Gateway
+          </Link>
         </div>
 
         {/* CTA */}
@@ -167,7 +187,8 @@ export default function Nav() {
       {/* Mobile menu */}
       {menuOpen && (
         <div className="md:hidden bg-white border-t border-slate-100 px-5 py-4 flex flex-col gap-1 shadow-lg max-h-[80vh] overflow-y-auto">
-          <Link href="/services" className="text-sm font-bold text-slate-700 py-2.5 px-3 rounded-lg hover:bg-slate-50" onClick={() => setMenuOpen(false)}>All Services</Link>
+          <div className="text-xs font-bold uppercase tracking-widest text-slate-400 px-3 py-1 mt-1">Services</div>
+          <Link href="/services" className="text-sm font-bold text-slate-700 py-2 px-3 rounded-lg hover:bg-slate-50" onClick={() => setMenuOpen(false)}>All Services</Link>
           <div className="pl-3 flex flex-col gap-0.5">
             {SERVICES.map(s => (
               <Link key={s.slug} href={`/services/${s.slug}`} className="text-sm text-slate-600 py-2 px-3 rounded-lg hover:bg-slate-50 flex items-center gap-2" onClick={() => setMenuOpen(false)}>
@@ -175,8 +196,8 @@ export default function Nav() {
               </Link>
             ))}
           </div>
-          <div className="border-t border-slate-100 my-1" />
-          <Link href="/industries" className="text-sm font-bold text-slate-700 py-2.5 px-3 rounded-lg hover:bg-slate-50" onClick={() => setMenuOpen(false)}>All Industries</Link>
+          <div className="text-xs font-bold uppercase tracking-widest text-slate-400 px-3 py-1 mt-2">Industries</div>
+          <Link href="/industries" className="text-sm font-bold text-slate-700 py-2 px-3 rounded-lg hover:bg-slate-50" onClick={() => setMenuOpen(false)}>All Industries</Link>
           <div className="pl-3 flex flex-col gap-0.5">
             {INDUSTRIES.map(ind => (
               <Link key={ind.slug} href={`/industries/${ind.slug}`} className="text-sm text-slate-600 py-2 px-3 rounded-lg hover:bg-slate-50 flex items-center gap-2" onClick={() => setMenuOpen(false)}>
@@ -184,9 +205,10 @@ export default function Nav() {
               </Link>
             ))}
           </div>
-          <div className="border-t border-slate-100 my-1" />
-          <Link href="/#how-it-works" className="text-sm font-medium text-slate-700 py-2.5 px-3 rounded-lg hover:bg-slate-50" onClick={() => setMenuOpen(false)}>How It Works</Link>
-          <Link href="/#why-us" className="text-sm font-medium text-slate-700 py-2.5 px-3 rounded-lg hover:bg-slate-50" onClick={() => setMenuOpen(false)}>Why Gateway</Link>
+          <div className="border-t border-slate-100 mt-2 pt-2 flex flex-col gap-1">
+            <Link href="/#how-it-works" className="text-sm font-medium text-slate-700 py-2.5 px-3 rounded-lg hover:bg-slate-50" onClick={() => setMenuOpen(false)}>How It Works</Link>
+            <Link href="/#why-us" className="text-sm font-medium text-slate-700 py-2.5 px-3 rounded-lg hover:bg-slate-50" onClick={() => setMenuOpen(false)}>Why Gateway</Link>
+          </div>
           <div className="pt-2 border-t border-slate-100 mt-1">
             <Link href="/apply" className="block bg-blue-600 text-white text-sm font-semibold px-5 py-3 rounded-lg text-center hover:bg-blue-700 transition-colors" onClick={() => setMenuOpen(false)}>
               Apply Now — It&apos;s Free →
