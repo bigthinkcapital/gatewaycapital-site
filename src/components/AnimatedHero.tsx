@@ -26,23 +26,14 @@ export default function AnimatedHero() {
     if (!ctx) return
 
     let animId: number
-    let W = 0, H = 0
+    let W = canvas.offsetWidth || 800
+    let H = canvas.offsetHeight || 600
 
     const particles: Particle[] = []
     const bars: Bar[] = []
     const streams: Stream[] = []
 
     const BLUES = ['rgba(27,79,216,', 'rgba(59,130,246,', 'rgba(37,99,235,', 'rgba(96,165,250,']
-    const NAVY = 'rgba(15,31,74,'
-
-    function resize() {
-      W = canvas.offsetWidth
-      H = canvas.offsetHeight
-      canvas.width = W
-      canvas.height = H
-      initBars()
-      initStreams()
-    }
 
     function initBars() {
       bars.length = 0
@@ -65,10 +56,7 @@ export default function AnimatedHero() {
         const pts = []
         const startX = Math.random() * W
         for (let j = 0; j < 8; j++) {
-          pts.push({
-            x: startX + (Math.random() - 0.5) * 80 * j,
-            y: (j / 7) * H,
-          })
+          pts.push({ x: startX + (Math.random() - 0.5) * 80 * j, y: (j / 7) * H })
         }
         streams.push({
           points: pts,
@@ -80,9 +68,18 @@ export default function AnimatedHero() {
       }
     }
 
+    function resize() {
+      // canvas is guaranteed non-null here (captured in closure above)
+      W = canvas!.offsetWidth || 800
+      H = canvas!.offsetHeight || 600
+      canvas!.width = W
+      canvas!.height = H
+      initBars()
+      initStreams()
+    }
+
     function spawnParticle() {
       const types: Particle['type'][] = ['dollar', 'dollar', 'dollar', 'circle', 'bar', 'line']
-      const t = types[Math.floor(Math.random() * types.length)]
       particles.push({
         x: Math.random() * W,
         y: H + 20,
@@ -90,7 +87,7 @@ export default function AnimatedHero() {
         vy: -(Math.random() * 1.2 + 0.4),
         size: Math.random() * 16 + 8,
         opacity: 0,
-        type: t,
+        type: types[Math.floor(Math.random() * types.length)],
         color: BLUES[Math.floor(Math.random() * BLUES.length)],
         rotation: Math.random() * Math.PI * 2,
         rotSpeed: (Math.random() - 0.5) * 0.02,
@@ -165,27 +162,17 @@ export default function AnimatedHero() {
     function drawRisingBars() {
       bars.forEach(bar => {
         bar.currentH += (bar.targetH - bar.currentH) * bar.speed
-        const x = bar.x
-        const y = H
-        const h = bar.currentH
-        const w = bar.width
-
-        // Gradient bar
-        const grad = ctx.createLinearGradient(x, y - h, x, y)
+        const grad = ctx.createLinearGradient(bar.x, H - bar.currentH, bar.x, H)
         grad.addColorStop(0, bar.color + '0.18)')
         grad.addColorStop(1, bar.color + '0.04)')
         ctx.fillStyle = grad
-        ctx.fillRect(x - w / 2, y - h, w, h)
-
-        // Top cap glow
+        ctx.fillRect(bar.x - bar.width / 2, H - bar.currentH, bar.width, bar.currentH)
         ctx.fillStyle = bar.color + '0.35)'
-        ctx.fillRect(x - w / 2, y - h, w, 2)
+        ctx.fillRect(bar.x - bar.width / 2, H - bar.currentH, bar.width, 2)
       })
     }
 
     function drawGrid() {
-      // Subtle dot grid
-      ctx.save()
       const spacing = 36
       for (let x = 0; x < W; x += spacing) {
         for (let y = 0; y < H; y += spacing) {
@@ -195,23 +182,18 @@ export default function AnimatedHero() {
           ctx.fill()
         }
       }
-      ctx.restore()
     }
 
     function drawUpwardArrow(t: number) {
-      // Pulsing upward arrow — represents growth
       const cx = W * 0.85
       const cy = H * 0.4
       const pulse = Math.sin(t * 0.02) * 0.3 + 0.7
-
       ctx.save()
       ctx.globalAlpha = 0.12 * pulse
       ctx.strokeStyle = 'rgba(27,79,216,1)'
       ctx.lineWidth = 3
       ctx.lineCap = 'round'
       ctx.lineJoin = 'round'
-
-      // Draw a trending line upward
       ctx.beginPath()
       ctx.moveTo(cx - 60, cy + 40)
       ctx.lineTo(cx - 30, cy + 15)
@@ -219,8 +201,6 @@ export default function AnimatedHero() {
       ctx.lineTo(cx + 30, cy - 30)
       ctx.lineTo(cx + 60, cy - 55)
       ctx.stroke()
-
-      // Arrow head
       ctx.beginPath()
       ctx.moveTo(cx + 60, cy - 55)
       ctx.lineTo(cx + 45, cy - 48)
@@ -231,7 +211,6 @@ export default function AnimatedHero() {
     }
 
     function drawCircuitLines(t: number) {
-      // Moving circuit/flow lines suggesting money flow
       const lines = [
         { x1: 0, y1: H * 0.25, x2: W * 0.3, y2: H * 0.15 },
         { x1: W * 0.7, y1: H * 0.1, x2: W, y2: H * 0.3 },
@@ -241,7 +220,6 @@ export default function AnimatedHero() {
         const prog = ((t * 0.008 + i * 0.33) % 1)
         const x = line.x1 + (line.x2 - line.x1) * prog
         const y = line.y1 + (line.y2 - line.y1) * prog
-
         ctx.save()
         ctx.globalAlpha = 0.15
         ctx.strokeStyle = 'rgba(27,79,216,1)'
@@ -252,8 +230,6 @@ export default function AnimatedHero() {
         ctx.lineTo(line.x2, line.y2)
         ctx.stroke()
         ctx.setLineDash([])
-
-        // Moving dot
         ctx.globalAlpha = 0.5
         ctx.beginPath()
         ctx.arc(x, y, 3, 0, Math.PI * 2)
@@ -269,11 +245,8 @@ export default function AnimatedHero() {
     function animate() {
       animId = requestAnimationFrame(animate)
       frame++
-
-      // Clear
       ctx.clearRect(0, 0, W, H)
 
-      // Background gradient
       const bg = ctx.createLinearGradient(0, 0, W, H)
       bg.addColorStop(0, 'rgba(244,247,255,1)')
       bg.addColorStop(0.5, 'rgba(237,242,255,1)')
@@ -281,42 +254,30 @@ export default function AnimatedHero() {
       ctx.fillStyle = bg
       ctx.fillRect(0, 0, W, H)
 
-      // Layers (back to front)
       drawGrid()
       drawRisingBars()
       drawCircuitLines(frame)
       drawUpwardArrow(frame)
-
-      // Streams
       streams.forEach(s => drawStreamPath(s))
 
-      // Spawn particles
       spawnTimer++
       if (spawnTimer > 12 && particles.length < 35) {
         spawnParticle()
         spawnTimer = 0
       }
 
-      // Update & draw particles
       for (let i = particles.length - 1; i >= 0; i--) {
         const p = particles[i]
         p.x += p.vx
         p.y += p.vy
         p.rotation += p.rotSpeed
         p.life++
-
-        // Fade in/out
         const lifeRatio = p.life / p.maxLife
-        if (lifeRatio < 0.15) p.opacity = lifeRatio / 0.15
-        else if (lifeRatio > 0.75) p.opacity = 1 - (lifeRatio - 0.75) / 0.25
-        else p.opacity = 1
+        if (lifeRatio < 0.15) p.opacity = (lifeRatio / 0.15) * 0.18
+        else if (lifeRatio > 0.75) p.opacity = (1 - (lifeRatio - 0.75) / 0.25) * 0.18
+        else p.opacity = 0.18
 
-        p.opacity *= 0.18 // keep subtle
-
-        if (p.life >= p.maxLife || p.y < -30) {
-          particles.splice(i, 1)
-          continue
-        }
+        if (p.life >= p.maxLife || p.y < -30) { particles.splice(i, 1); continue }
 
         switch (p.type) {
           case 'dollar': drawDollar(p.x, p.y, p.size, p.rotation, p.opacity, p.color); break
@@ -326,14 +287,12 @@ export default function AnimatedHero() {
         }
       }
 
-      // Subtle radial glow — top right
       const glow = ctx.createRadialGradient(W * 0.8, H * 0.1, 0, W * 0.8, H * 0.1, W * 0.4)
       glow.addColorStop(0, 'rgba(27,79,216,0.07)')
       glow.addColorStop(1, 'rgba(27,79,216,0)')
       ctx.fillStyle = glow
       ctx.fillRect(0, 0, W, H)
 
-      // Bottom left glow
       const glow2 = ctx.createRadialGradient(W * 0.1, H * 0.9, 0, W * 0.1, H * 0.9, W * 0.3)
       glow2.addColorStop(0, 'rgba(59,130,246,0.05)')
       glow2.addColorStop(1, 'rgba(59,130,246,0)')
