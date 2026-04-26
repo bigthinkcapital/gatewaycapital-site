@@ -1,7 +1,6 @@
 'use client'
 import { useState, useEffect, useRef } from 'react'
 import Link from 'next/link'
-import { LogoHorizontal } from '@/components/GatewayLogo'
 
 const INDUSTRIES = [
   { name: 'Restaurant & Food Service', slug: 'restaurant', icon: '🍕' },
@@ -62,12 +61,43 @@ export default function Nav() {
     >
       <div className="max-w-6xl mx-auto px-5 h-16 flex items-center justify-between">
 
-        {/* Logo */}
-        <Link href="/" className="group">
-          <LogoHorizontal size={42} />
+        {/* ── Logo ── */}
+        <Link href="/" className="flex items-center gap-3 group">
+          {/* Simple navy circle mark with G */}
+          <div
+            className="w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 transition-opacity group-hover:opacity-90"
+            style={{ backgroundColor: '#1e3a6e' }}
+          >
+            <span
+              style={{
+                fontFamily: 'Georgia, serif',
+                fontWeight: 700,
+                fontSize: '22px',
+                color: 'white',
+                lineHeight: 1,
+                letterSpacing: '-1px',
+              }}
+            >
+              G
+            </span>
+          </div>
+          <div className="leading-none">
+            <div
+              className="font-extrabold tracking-tight leading-none"
+              style={{ fontFamily: 'Georgia, serif', fontSize: '1.15rem', color: '#1e3a6e' }}
+            >
+              Gateway <span style={{ color: '#2563eb' }}>Capital</span>
+            </div>
+            <div
+              className="uppercase font-semibold leading-none mt-1"
+              style={{ fontSize: '0.55rem', letterSpacing: '0.17em', color: '#64748b' }}
+            >
+              Your Gateway to Business Funding
+            </div>
+          </div>
         </Link>
 
-        {/* Desktop links */}
+        {/* ── Desktop links ── */}
         <div className="hidden md:flex items-center gap-6">
 
           {/* Services dropdown */}
@@ -82,7 +112,6 @@ export default function Nav() {
                 <path d="M3 5l4 4 4-4"/>
               </svg>
             </button>
-
             {activeDropdown === 'services' && (
               <div className="absolute top-full left-1/2 -translate-x-1/2 mt-3 w-64 bg-white rounded-2xl border border-slate-200 shadow-xl shadow-slate-900/10 overflow-hidden z-50">
                 <div className="p-2">
@@ -123,7 +152,6 @@ export default function Nav() {
                 <path d="M3 5l4 4 4-4"/>
               </svg>
             </button>
-
             {activeDropdown === 'industries' && (
               <div className="absolute top-full left-1/2 -translate-x-1/2 mt-3 w-72 bg-white rounded-2xl border border-slate-200 shadow-xl shadow-slate-900/10 overflow-hidden z-50">
                 <div className="p-2">
@@ -160,7 +188,7 @@ export default function Nav() {
           </Link>
         </div>
 
-        {/* CTA */}
+        {/* ── CTA ── */}
         <div className="hidden md:block">
           <Link
             href="/apply"
@@ -171,7 +199,7 @@ export default function Nav() {
           </Link>
         </div>
 
-        {/* Mobile hamburger */}
+        {/* ── Mobile hamburger ── */}
         <button
           className="md:hidden p-2 rounded-lg text-slate-600 hover:bg-slate-100 transition-colors"
           onClick={() => setMenuOpen(!menuOpen)}
@@ -185,7 +213,7 @@ export default function Nav() {
         </button>
       </div>
 
-      {/* Mobile menu */}
+      {/* ── Mobile menu ── */}
       {menuOpen && (
         <div className="md:hidden bg-white border-t border-slate-100 px-5 py-4 flex flex-col gap-1 shadow-lg max-h-[80vh] overflow-y-auto">
           <div className="text-xs font-bold uppercase tracking-widest text-slate-400 px-3 py-1 mt-1">Services</div>
@@ -213,7 +241,7 @@ export default function Nav() {
           <div className="pt-2 border-t border-slate-100 mt-1">
             <Link
               href="/apply"
-              className="block text-white text-sm font-semibold px-5 py-3 rounded-lg text-center transition-colors"
+              className="block text-white text-sm font-semibold px-5 py-3 rounded-lg text-center"
               style={{ backgroundColor: '#1e3a6e' }}
               onClick={() => setMenuOpen(false)}
             >
