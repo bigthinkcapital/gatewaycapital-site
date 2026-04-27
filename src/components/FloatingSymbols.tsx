@@ -1,64 +1,69 @@
 'use client'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef } from 'react'
 
-interface Symbol {
-  id: number
-  char: string
-  x: number
-  size: number
-  duration: number
-  delay: number
-  opacity: number
-}
-
-const CHARS = ['$', '%', '💰', '📈', '$', '$', '%', '💵', '📊', '$', '💲', '%']
+const SYMBOLS = ['$', '%', '$', '💰', '📈', '$', '%', '💵', '$', '📊', '$', '%', '💲', '$', '📈', '💰', '$', '%']
 
 export default function FloatingSymbols() {
-  const [symbols, setSymbols] = useState<Symbol[]>([])
+  const containerRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
-    const generated: Symbol[] = Array.from({ length: 18 }, (_, i) => ({
-      id: i,
-      char: CHARS[i % CHARS.length],
-      x: Math.random() * 100,
-      size: Math.random() * 18 + 12,
-      duration: Math.random() * 12 + 10,
-      delay: Math.random() * 10,
-      opacity: Math.random() * 0.12 + 0.04,
-    }))
-    setSymbols(generated)
+    const container = containerRef.current
+    if (!container) return
+
+    // Inject keyframe animation into document head once
+    const styleId = 'float-symbols-style'
+    if (!document.getElementById(styleId)) {
+      const style = document.createElement('style')
+      style.id = styleId
+      style.textContent = `
+        @keyframes floatSymbol {
+          0%   { transform: translateY(0) rotate(-8deg); opacity: 0; }
+          8%   { opacity: 1; }
+          92%  { opacity: 1; }
+          100% { transform: translateY(-110vh) rotate(8deg); opacity: 0; }
+        }
+      `
+      document.head.appendChild(style)
+    }
+
+    // Create and append symbol elements
+    const elements: HTMLSpanElement[] = []
+
+    SYMBOLS.forEach((char, i) => {
+      const el = document.createElement('span')
+      el.textContent = char
+      el.style.cssText = `
+        position: absolute;
+        left: ${(i / SYMBOLS.length) * 100 + Math.random() * 4}%;
+        bottom: -40px;
+        font-size: ${Math.random() * 16 + 14}px;
+        font-weight: 700;
+        color: #1e3369;
+        opacity: 0;
+        pointer-events: none;
+        user-select: none;
+        animation: floatSymbol ${Math.random() * 10 + 12}s ${Math.random() * 15}s infinite linear;
+      `
+      container.appendChild(el)
+      elements.push(el)
+    })
+
+    return () => {
+      elements.forEach(el => el.remove())
+    }
   }, [])
 
-  if (symbols.length === 0) return null
-
   return (
-    <div className="absolute inset-0 overflow-hidden pointer-events-none" aria-hidden="true">
-      <style>{`
-        @keyframes floatUp {
-          0%   { transform: translateY(110%) rotate(-10deg); opacity: 0; }
-          10%  { opacity: 1; }
-          90%  { opacity: 1; }
-          100% { transform: translateY(-10%) rotate(10deg); opacity: 0; }
-        }
-      `}</style>
-      {symbols.map(s => (
-        <div
-          key={s.id}
-          style={{
-            position: 'absolute',
-            left: `${s.x}%`,
-            bottom: '-5%',
-            fontSize: `${s.size}px`,
-            opacity: s.opacity,
-            animation: `floatUp ${s.duration}s ${s.delay}s infinite linear`,
-            color: '#1e3a6e',
-            fontWeight: 700,
-            userSelect: 'none',
-          }}
-        >
-          {s.char}
-        </div>
-      ))}
-    </div>
+    <div
+      ref={containerRef}
+      aria-hidden="true"
+      style={{
+        position: 'absolute',
+        inset: 0,
+        overflow: 'hidden',
+        pointerEvents: 'none',
+        zIndex: 0,
+      }}
+    />
   )
 }
