@@ -10,14 +10,16 @@ const LOGO_PNG = '/file_00000000fb3871f5a0a97b25fe769035.png'
 export const metadata: Metadata = {
   metadataBase: new URL('https://gatewaycapitalfunding.com'),
   title: {
-    default: 'Gateway Capital | Small Business Loans & Funding Marketplace',
+    default: 'Gateway Capital | AI-Powered Business Lender Matching',
     template: '%s | Gateway Capital',
   },
   description:
-    'Gateway Capital matches small businesses with top lenders competing to fund them. One application — SBA loans, term loans, lines of credit, equipment financing, invoice financing, and working capital. Apply in 2 minutes.',
+    'Gateway Capital uses artificial intelligence to match your business with the right lender or broker — fast, accurate, and tailored to your exact profile. SBA loans, term loans, equipment financing, lines of credit and more. Apply in 2 minutes.',
   keywords: [
-    'small business loans', 'business funding', 'SBA loans', 'business line of credit',
-    'equipment financing', 'invoice financing', 'working capital loans', 'business loan marketplace',
+    'AI business lender matching', 'artificial intelligence business loans',
+    'smart business loan matching', 'SBA loans', 'business line of credit',
+    'equipment financing', 'invoice financing', 'working capital loans',
+    'small business lending', 'business loan marketplace',
   ],
   authors: [{ name: 'Gateway Capital' }],
   creator: 'Gateway Capital',
@@ -26,14 +28,14 @@ export const metadata: Metadata = {
     locale: 'en_US',
     url: 'https://gatewaycapitalfunding.com',
     siteName: 'Gateway Capital',
-    title: 'Gateway Capital | Small Business Loans & Funding Marketplace',
-    description: 'One application. Multiple lenders compete for your business. Get funded in as little as 24 hours.',
-    images: [{ url: LOGO_PNG, width: 1024, height: 1024, alt: 'Gateway Capital logo' }],
+    title: 'Gateway Capital | AI-Powered Business Lender Matching',
+    description: 'Our AI analyzes your profile and connects you to the right lender — fast. Apply in 2 minutes.',
+    images: [{ url: LOGO_PNG, width: 1024, height: 1024, alt: 'Gateway Capital — AI Business Lender Matching' }],
   },
   twitter: {
     card: 'summary',
-    title: 'Gateway Capital | Business Funding Marketplace',
-    description: 'One application. Multiple lenders. Get the best offer for your business.',
+    title: 'Gateway Capital | AI Business Lender Matching',
+    description: 'AI finds the right lender for your business. Apply in 2 minutes.',
     images: [LOGO_PNG],
   },
   icons: {
@@ -54,11 +56,11 @@ const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'FinancialService',
   name: 'Gateway Capital',
-  description: 'Small business lending marketplace connecting businesses to SBA loans, term loans, lines of credit, equipment financing, invoice financing, and working capital.',
+  description: 'AI-powered business lender matching. Gateway Capital uses artificial intelligence to connect small businesses with the right lender or broker for their exact funding needs.',
   url: 'https://gatewaycapitalfunding.com',
   logo: `https://gatewaycapitalfunding.com${LOGO_PNG}`,
   areaServed: 'US',
-  serviceType: 'Business Lending Marketplace',
+  serviceType: 'AI Business Lender Matching',
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
