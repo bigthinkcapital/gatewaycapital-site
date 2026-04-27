@@ -6,143 +6,37 @@ import SmartBar from '@/components/SmartBar'
 import MobileCTA from '@/components/MobileCTA'
 import StatsSection from '@/components/StatsSection'
 import ApplyForm from '@/components/ApplyForm'
+import FloatingSymbols from '@/components/FloatingSymbols'
 
 export const metadata: Metadata = {
-  title: 'Gateway Capital | Small Business Loans & Funding Marketplace',
+  title: 'Gateway Capital | Get Matched to Business Lenders — Up to $5M',
   description:
-    'Gateway Capital matches small businesses with top lenders competing to fund them. One application — SBA loans, term loans, lines of credit, equipment financing, invoice financing, and working capital. Apply in 2 minutes.',
+    'Gateway Capital matches your business to the right lenders and brokers — fast. One application, multiple competitive offers, you choose the best. SBA loans, term loans, lines of credit and more. Apply in 2 minutes.',
 }
 
-/* ── Animated hero widget ─────────────────────────────────────────── */
-function MatchingWidget() {
-  const offers = [
-    { label: 'A', amount: '$250,000', rate: '6.2% APR', speed: '24hr', match: 98, best: true,  color: '#1e3369' },
-    { label: 'B', amount: '$220,000', rate: '7.8% APR', speed: '48hr', match: 91, best: false, color: '#64748b' },
-    { label: 'C', amount: '$275,000', rate: '8.5% APR', speed: '72hr', match: 85, best: false, color: '#64748b' },
-  ]
+const PRODUCTS = [
+  { icon: '🏛️', name: 'SBA Loans', desc: 'We match you with SBA-approved lenders for the lowest long-term rates available — government-backed, specialist-sourced.', amount: 'Up to $5M', tag: 'Lowest Rates', tagColor: 'text-emerald-600 bg-emerald-50' },
+  { icon: '📈', name: 'Term Loans', desc: 'Fixed capital from our lender network. We surface competing offers so you get the best rate for expansion, hiring, or growth.', amount: '$25K – $2M', tag: 'Same Day', tagColor: 'text-blue-600 bg-blue-50' },
+  { icon: '💳', name: 'Lines of Credit', desc: 'Revolving credit matched to your cash flow needs. Draw what you need, pay interest only on usage — sourced from multiple lenders.', amount: 'Up to $1M', tag: 'Revolving', tagColor: 'text-violet-600 bg-violet-50' },
+  { icon: '⚙️', name: 'Equipment Financing', desc: 'We route your application to equipment specialists who finance up to 100% of asset cost — the asset is the collateral.', amount: 'Up to $5M', tag: '100% Financing', tagColor: 'text-orange-600 bg-orange-50' },
+  { icon: '📋', name: 'Invoice Financing', desc: 'Stop waiting 30–90 days to get paid. We connect you to invoice specialists who unlock your outstanding receivables same day.', amount: 'Up to 90%', tag: '24-Hour Funding', tagColor: 'text-emerald-600 bg-emerald-50' },
+  { icon: '⚡', name: 'Working Capital', desc: 'Revenue-based capital matched from our broker network. Fastest path to working capital — repay as a % of daily sales.', amount: '$5K – $750K', tag: 'Fastest Option', tagColor: 'text-amber-600 bg-amber-50' },
+]
 
-  return (
-    <div className="relative w-full max-w-md mx-auto lg:mx-0 lg:ml-auto">
+const STEPS = [
+  { num: '01', title: 'One Application', desc: 'Fill out a single 2-minute form. No hard credit pull. Your data is securely routed to our matching engine.', icon: '📋' },
+  { num: '02', title: 'Smart Matching', desc: 'Our algorithm instantly matches your profile to the right lenders and brokers from our vetted network.', icon: '⚡' },
+  { num: '03', title: 'Multiple Offers', desc: 'Receive competitive offers side by side. Our specialists walk you through every term — no surprises.', icon: '📊' },
+  { num: '04', title: 'You Choose & Get Funded', desc: 'Pick the offer that works best for you. Funds hit your account — often same day, always within 24 hours.', icon: '✅' },
+]
 
-      {/* Floating badge top-right */}
-      <div className="absolute -top-4 -right-2 z-10 bg-white rounded-xl shadow-lg border border-slate-100 px-3 py-2 flex items-center gap-2">
-        <span className="text-orange-400 text-base">⚡</span>
-        <div>
-          <div className="text-xs font-bold text-slate-800 leading-tight">Live Matching Engine</div>
-          <div className="text-[10px] text-slate-400">50+ lenders · Real-time routing</div>
-        </div>
-      </div>
-
-      {/* Main card */}
-      <div className="bg-white rounded-2xl shadow-xl border border-slate-100 overflow-hidden">
-
-        {/* Progress bar header */}
-        <div className="h-1.5 bg-slate-100">
-          <div className="h-full bg-gradient-to-r from-blue-500 to-emerald-400 animate-pulse" style={{ width: '85%' }} />
-        </div>
-
-        <div className="p-5">
-          <div className="text-[10px] font-bold tracking-widest uppercase text-slate-400 mb-4">
-            Your Offer Match Preview
-          </div>
-
-          {/* Offer rows */}
-          <div className="space-y-2.5 mb-4">
-            {offers.map((o) => (
-              <div
-                key={o.label}
-                className={`flex items-center justify-between rounded-xl px-4 py-3 ${
-                  o.best ? 'bg-blue-50 border border-blue-100' : 'bg-slate-50 border border-slate-100'
-                }`}
-              >
-                <div className="flex items-center gap-3">
-                  <div
-                    className="w-7 h-7 rounded-lg flex items-center justify-center text-xs font-bold text-white flex-shrink-0"
-                    style={{ backgroundColor: o.color }}
-                  >
-                    {o.label}
-                  </div>
-                  <div>
-                    <div className={`text-sm font-bold ${o.best ? 'text-slate-900' : 'text-slate-700'}`}>
-                      {o.amount}
-                    </div>
-                    <div className="text-[11px] text-slate-400">{o.rate} · {o.speed}</div>
-                  </div>
-                </div>
-                <div className="flex items-center gap-2">
-                  <span className={`text-xs font-bold ${o.best ? 'text-blue-600' : 'text-slate-400'}`}>
-                    {o.match}% match
-                  </span>
-                  {o.best && (
-                    <span className="bg-blue-600 text-white text-[10px] font-bold px-2 py-0.5 rounded-full">
-                      Best
-                    </span>
-                  )}
-                </div>
-              </div>
-            ))}
-          </div>
-
-          {/* Animated bar chart */}
-          <div className="bg-slate-50 rounded-xl p-3 mb-4">
-            <div className="flex items-end justify-between gap-1.5 h-14">
-              {[38, 55, 72, 61, 84, 70, 90, 78, 95, 88, 100, 92].map((h, i) => (
-                <div
-                  key={i}
-                  className="flex-1 rounded-t-sm"
-                  style={{
-                    height: `${h}%`,
-                    backgroundColor: i === 10 ? '#1e3369' : i >= 8 ? '#3b5ea6' : '#93b4d8',
-                    opacity: 0.7 + (i / 10) * 0.3,
-                  }}
-                />
-              ))}
-            </div>
-            <div className="flex items-center justify-between mt-2">
-              <span className="text-[10px] text-slate-400">Matching across network</span>
-              <span className="text-[10px] font-bold text-emerald-600">50+ lenders scanned</span>
-            </div>
-            <div className="h-1 bg-slate-200 rounded-full mt-1.5 overflow-hidden">
-              <div className="h-full bg-emerald-500 rounded-full" style={{ width: '92%' }} />
-            </div>
-          </div>
-
-          {/* CTA button */}
-          <Link
-            href="/apply"
-            className="flex items-center justify-between w-full text-white font-bold text-sm px-5 py-3.5 rounded-xl transition-all hover:opacity-90"
-            style={{ backgroundColor: '#1e3369' }}
-          >
-            <div>
-              <div>Get My Real Offers</div>
-              <div className="text-xs font-normal opacity-70">Free · No hard credit pull · 2 min</div>
-            </div>
-            <span className="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center text-sm">→</span>
-          </Link>
-        </div>
-      </div>
-
-      {/* Floating Trustpilot badge */}
-      <div className="absolute -bottom-4 left-4 bg-white rounded-xl shadow-lg border border-slate-100 px-3 py-2 flex items-center gap-2">
-        <span className="text-yellow-400 text-base">★</span>
-        <div>
-          <div className="text-xs font-bold text-slate-800 leading-tight">4.8 Trustpilot Rating</div>
-          <div className="text-[10px] text-slate-400">3,200+ verified reviews</div>
-        </div>
-      </div>
-    </div>
-  )
-}
-
-/* ── Money counter animation component ───────────────────────────── */
-function MoneyTicker() {
-  return (
-    <div className="inline-flex items-center gap-2 bg-emerald-50 border border-emerald-100 rounded-full px-3 py-1.5 mb-6">
-      <span className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse" />
-      <span className="text-xs font-semibold text-emerald-700">Matching businesses to lenders in real time</span>
-    </div>
-  )
-}
+const REVIEWS = [
+  { text: 'Gateway matched us to three lenders in minutes. We picked the best rate and were funded the next morning. The process was completely transparent.', author: 'Maria T.', biz: 'Restaurant Owner, FL' },
+  { text: 'Within 32 hours we had multiple offers on the table and were fully funded. The matching technology is impressive — they knew exactly what we needed.', author: 'David K.', biz: 'IT Services, TX' },
+  { text: 'I applied once and got connected to the right lender immediately. Faster and more transparent than anything I had tried before.', author: 'Alex R.', biz: 'Retail Business, NY' },
+  { text: 'Five days from application to funding. They matched us to a specialist in construction lending — made all the difference in getting approved.', author: 'Carlos M.', biz: 'Construction, CA' },
+  { text: 'The broker they connected us with found terms we never could have sourced on our own. Now our growth has no ceiling.', author: 'Jennifer W.', biz: 'E-commerce, GA' },
+]
 
 export default function HomePage() {
   return (
@@ -151,62 +45,137 @@ export default function HomePage() {
       <Nav />
       <MobileCTA />
 
-      <main>
+      <main className="pt-[100px]">
 
         {/* ── HERO ──────────────────────────────────────────────── */}
-        <section className="min-h-[calc(100vh-100px)] bg-gradient-to-br from-slate-50 via-blue-50/30 to-slate-100 px-5 pt-20 pb-24 flex items-center">
-          <div className="max-w-6xl mx-auto w-full grid lg:grid-cols-2 gap-16 items-center">
+        <section className="relative min-h-[calc(100vh-100px)] flex items-center bg-gradient-to-br from-slate-50 via-blue-50/40 to-white overflow-hidden pb-24 pt-12">
 
-            {/* Left — headline + CTAs */}
+          {/* Floating money symbols */}
+          <FloatingSymbols />
+
+          {/* Static background blobs */}
+          <div className="absolute inset-0 pointer-events-none">
+            <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-blue-600/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/3" />
+            <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-blue-400/5 rounded-full blur-2xl translate-y-1/2 -translate-x-1/4" />
+            <div className="absolute inset-0 opacity-[0.02]" style={{ backgroundImage: 'radial-gradient(circle, #1B4FD8 1px, transparent 1px)', backgroundSize: '32px 32px' }} />
+          </div>
+
+          <div className="relative max-w-6xl mx-auto px-5 grid md:grid-cols-2 gap-12 items-center w-full">
+            {/* Left */}
             <div>
-              <MoneyTicker />
+              <div className="inline-flex items-center gap-2 bg-white border border-blue-100 rounded-full px-3 py-1.5 mb-6 shadow-sm">
+                <span className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse" />
+                <span className="text-xs font-semibold text-slate-700">Matching businesses to lenders in real time</span>
+              </div>
 
-              <h1 className="font-display font-extrabold text-5xl sm:text-6xl text-slate-900 tracking-tight leading-[1.05] mb-6">
-                One application.<br />
-                <span style={{ color: '#2563eb' }}>Multiple offers.</span><br />
+              <h1 className="font-display font-extrabold text-4xl sm:text-5xl lg:text-[3.5rem] text-slate-900 leading-[1.05] tracking-tight mb-5">
+                One application.{' '}
+                <span className="text-blue-600">Multiple offers.</span>{' '}
                 You pick the best.
               </h1>
 
               <p className="text-lg text-slate-500 leading-relaxed mb-8 max-w-lg">
-                Gateway Capital matches your business to lenders and brokers who compete for you — so you always get the best available terms. Up to{' '}
-                <strong className="text-slate-700">$5 million</strong> across 6+ products.
+                Gateway Capital intelligently matches your business to the right lenders and brokers from our vetted network — so you get <strong className="text-slate-700">competing offers</strong> and always the best terms. Up to <strong className="text-slate-700">$5 million</strong> across 6+ products.
               </p>
 
               <div className="flex flex-col sm:flex-row gap-3 mb-8">
                 <Link
                   href="/apply"
-                  className="inline-flex items-center justify-center gap-2 text-white font-bold text-base px-7 py-4 rounded-xl transition-all hover:opacity-90 hover:shadow-lg hover:-translate-y-0.5"
+                  className="inline-flex items-center justify-center gap-2 text-white font-bold text-base px-7 py-4 rounded-xl transition-all hover:opacity-90 hover:shadow-xl hover:-translate-y-0.5"
                   style={{ backgroundColor: '#1e3369' }}
                 >
                   Get My Offers →
                 </Link>
                 <Link
-                  href="/#how-it-works"
-                  className="inline-flex items-center justify-center gap-2 bg-white text-slate-700 font-semibold text-base px-7 py-4 rounded-xl border border-slate-200 hover:border-slate-300 hover:shadow-sm transition-all"
+                  href="#how-it-works"
+                  className="inline-flex items-center justify-center gap-2 bg-white hover:bg-slate-50 text-slate-700 font-semibold text-base px-7 py-4 rounded-xl border border-slate-200 transition-all hover:border-blue-200"
                 >
                   See How It Works
                 </Link>
               </div>
 
-              {/* Trust badges */}
-              <div className="flex flex-wrap items-center gap-x-5 gap-y-2">
-                {[
-                  { icon: '⭐', text: '4.8 Trustpilot' },
-                  { icon: '✅', text: 'BBB Accredited' },
-                  { icon: '🔒', text: 'No Hard Credit Pull' },
-                  { icon: '🏦', text: '50+ Lender Partners' },
-                ].map(b => (
-                  <div key={b.text} className="flex items-center gap-1.5">
-                    <span className="text-sm">{b.icon}</span>
-                    <span className="text-xs font-semibold text-slate-500">{b.text}</span>
-                  </div>
+              <div className="flex flex-wrap gap-x-5 gap-y-2">
+                {['⭐ 4.8 Trustpilot', '✅ BBB Accredited', '🔒 No Hard Credit Pull', '🤝 50+ Lender Partners'].map(t => (
+                  <span key={t} className="text-xs font-medium text-slate-500">{t}</span>
                 ))}
               </div>
             </div>
 
-            {/* Right — animated matching widget */}
-            <div className="hidden lg:block pt-6 pb-6">
-              <MatchingWidget />
+            {/* Right — Offer matching card */}
+            <div className="relative hidden md:block">
+              <div className="absolute -top-4 right-0 bg-white rounded-2xl shadow-lg border border-slate-100 px-4 py-3 flex items-center gap-3 z-10">
+                <span className="text-2xl">⚡</span>
+                <div>
+                  <div className="text-xs font-bold text-slate-800">Live Matching Engine</div>
+                  <div className="text-xs text-slate-400">50+ lenders · Real-time routing</div>
+                </div>
+              </div>
+
+              <div className="bg-white rounded-3xl border border-slate-100 shadow-2xl shadow-blue-600/10 p-7 relative overflow-hidden">
+                <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-blue-600 to-blue-400 rounded-t-3xl" />
+
+                <div className="text-xs font-bold tracking-widest uppercase text-slate-400 mb-3">Your Offer Match Preview</div>
+
+                <div className="space-y-2.5 mb-5">
+                  {[
+                    { lender: 'A', rate: '6.2% APR', amount: '$250,000', time: '24hr', match: 98, best: true },
+                    { lender: 'B', rate: '7.8% APR', amount: '$220,000', time: '48hr', match: 91, best: false },
+                    { lender: 'C', rate: '8.5% APR', amount: '$275,000', time: '72hr', match: 85, best: false },
+                  ].map(offer => (
+                    <div
+                      key={offer.lender}
+                      className={`flex items-center justify-between rounded-xl px-4 py-3 border transition-all ${
+                        offer.best ? 'border-blue-200 bg-blue-50' : 'border-slate-100 bg-slate-50'
+                      }`}
+                    >
+                      <div className="flex items-center gap-3">
+                        <div className={`w-8 h-8 rounded-lg flex items-center justify-center text-xs font-bold ${offer.best ? 'text-white' : 'bg-slate-200 text-slate-500'}`}
+                          style={offer.best ? { backgroundColor: '#1e3369' } : {}}>
+                          {offer.lender}
+                        </div>
+                        <div>
+                          <div className="text-sm font-bold text-slate-800">{offer.amount}</div>
+                          <div className="text-xs text-slate-400">{offer.rate} · {offer.time}</div>
+                        </div>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <span className={`text-xs font-bold ${offer.best ? 'text-blue-600' : 'text-slate-400'}`}>{offer.match}% match</span>
+                        {offer.best && (
+                          <span className="text-xs text-white px-2 py-0.5 rounded-full font-bold" style={{ backgroundColor: '#1e3369' }}>Best</span>
+                        )}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+                <div className="flex justify-between text-xs text-slate-500 mb-1.5">
+                  <span>Matching across network</span>
+                  <span className="text-emerald-600 font-semibold">50+ lenders scanned</span>
+                </div>
+                <div className="h-1.5 bg-slate-100 rounded-full overflow-hidden mb-5">
+                  <div className="h-full bg-gradient-to-r from-blue-600 to-emerald-500 rounded-full" style={{ width: '92%' }} />
+                </div>
+
+                <Link
+                  href="/apply"
+                  className="flex items-center justify-between rounded-xl px-5 py-3.5 transition-all group text-white hover:opacity-90"
+                  style={{ backgroundColor: '#1e3369' }}
+                >
+                  <div>
+                    <div className="text-sm font-bold">Get My Real Offers</div>
+                    <div className="text-xs opacity-70">Free · No hard credit pull · 2 min</div>
+                  </div>
+                  <span className="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center group-hover:translate-x-1 transition-transform">→</span>
+                </Link>
+              </div>
+
+              <div className="absolute -bottom-4 left-0 bg-white rounded-2xl shadow-lg border border-slate-100 px-4 py-3 flex items-center gap-3 z-10">
+                <span className="text-2xl">⭐</span>
+                <div>
+                  <div className="text-xs font-bold text-slate-800">4.8 Trustpilot Rating</div>
+                  <div className="text-xs text-slate-400">3,200+ verified reviews</div>
+                </div>
+              </div>
             </div>
           </div>
         </section>
@@ -215,197 +184,149 @@ export default function HomePage() {
         <StatsSection />
 
         {/* ── HOW IT WORKS ──────────────────────────────────────── */}
-        <section id="how-it-works" className="py-20 bg-white px-5">
-          <div className="max-w-5xl mx-auto">
+        <section id="how-it-works" className="py-20 bg-white">
+          <div className="max-w-6xl mx-auto px-5">
             <div className="text-center mb-14">
               <div className="inline-flex items-center gap-2 text-xs font-bold tracking-widest uppercase text-blue-600 mb-3">
-                <span className="w-5 h-px bg-blue-600" />The Process<span className="w-5 h-px bg-blue-600" />
+                <span className="w-5 h-px bg-blue-600" />How It Works<span className="w-5 h-px bg-blue-600" />
               </div>
               <h2 className="font-display font-extrabold text-3xl sm:text-4xl text-slate-900 tracking-tight mb-3">
-                How Gateway Capital works
+                Our matching engine does the heavy lifting
               </h2>
               <p className="text-slate-500 max-w-xl mx-auto">
-                We do the shopping. You do the picking.
+                One application. Intelligent routing. Competing offers from lenders who actually want your business.
               </p>
             </div>
-            <div className="grid sm:grid-cols-3 gap-6">
-              {[
-                { num: '01', title: 'One 2-minute application', desc: 'Tell us about your business, your revenue, and what you need. No hard credit pull. No commitment.' },
-                { num: '02', title: 'We match & route', desc: 'Our engine instantly matches your profile to lenders and brokers in our network who specialize in your funding type.' },
-                { num: '03', title: 'Pick your best offer', desc: 'Review competing offers side by side. Transparent rates, terms, and fees. You choose — we fund in as little as 24 hours.' },
-              ].map(step => (
-                <div key={step.num} className="relative bg-slate-50 border border-slate-200 rounded-2xl p-7">
-                  <div className="font-display font-extrabold text-4xl mb-4" style={{ color: '#1e336920' }}>{step.num}</div>
-                  <div className="font-display font-bold text-base text-slate-900 mb-2">{step.title}</div>
+            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5 mb-12">
+              {STEPS.map((step, i) => (
+                <div key={step.num} className="relative bg-slate-50 rounded-2xl p-6 border border-slate-200 hover:border-blue-200 hover:shadow-md transition-all">
+                  {i < STEPS.length - 1 && (
+                    <div className="hidden lg:block absolute top-10 right-0 translate-x-1/2 z-10 text-slate-300 text-lg font-bold">→</div>
+                  )}
+                  <div className="text-2xl mb-3">{step.icon}</div>
+                  <div className="text-xs font-bold text-blue-600 tracking-widest uppercase mb-2">Step {step.num}</div>
+                  <h3 className="font-display font-bold text-base text-slate-900 mb-2">{step.title}</h3>
                   <p className="text-sm text-slate-500 leading-relaxed">{step.desc}</p>
                 </div>
               ))}
+            </div>
+            <div className="text-center">
+              <Link href="/apply" className="inline-flex items-center gap-2 text-white font-bold text-base px-8 py-4 rounded-xl transition-all hover:opacity-90 hover:shadow-xl hover:-translate-y-0.5" style={{ backgroundColor: '#1e3369' }}>
+                Start Matching Now — It&apos;s Free →
+              </Link>
+              <p className="mt-3 text-xs text-slate-400">No hard credit pull · No commitment · See your offers in minutes</p>
             </div>
           </div>
         </section>
 
         {/* ── PRODUCTS ──────────────────────────────────────────── */}
-        <section className="py-20 bg-slate-50 px-5">
-          <div className="max-w-6xl mx-auto">
-            <div className="text-center mb-12">
+        <section id="products" className="py-20 bg-slate-50">
+          <div className="max-w-6xl mx-auto px-5">
+            <div className="text-center mb-14">
               <div className="inline-flex items-center gap-2 text-xs font-bold tracking-widest uppercase text-blue-600 mb-3">
                 <span className="w-5 h-px bg-blue-600" />Funding Products<span className="w-5 h-px bg-blue-600" />
               </div>
               <h2 className="font-display font-extrabold text-3xl sm:text-4xl text-slate-900 tracking-tight mb-3">
-                6 products. One application.
+                Matched to the right product, <span className="text-blue-600">every time</span>
               </h2>
               <p className="text-slate-500 max-w-xl mx-auto">
-                Not sure which is right? Apply once — our engine recommends the best fit and routes you to the right lenders.
+                Our engine routes your profile to lenders who specialize in exactly what you need.
               </p>
             </div>
-            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
-              {[
-                { icon: '🏛️', name: 'SBA Loans', slug: 'sba-loans', desc: 'Lowest rates available. Up to $5M, up to 25-year terms.', tag: 'From 6.5% APR' },
-                { icon: '📈', name: 'Term Loans', slug: 'term-loans', desc: 'Fixed payments, fast approval, same-day funding available.', tag: 'From 7.9% APR' },
-                { icon: '💳', name: 'Lines of Credit', slug: 'lines-of-credit', desc: 'Revolving access up to $1M. Pay only on what you use.', tag: 'From 8.5% APR' },
-                { icon: '⚙️', name: 'Equipment Financing', slug: 'equipment-financing', desc: '100% financing. The asset is the collateral.', tag: 'From 5.9% APR' },
-                { icon: '📋', name: 'Invoice Financing', slug: 'invoice-financing', desc: 'Advance up to 90% of outstanding invoices today.', tag: '1–5% fee' },
-                { icon: '⚡', name: 'Working Capital', slug: 'working-capital', desc: 'Same-day funding. Revenue-based repayment.', tag: 'Same day' },
-              ].map(p => (
-                <Link
-                  key={p.slug}
-                  href={`/services/${p.slug}`}
-                  className="group bg-white border border-slate-200 rounded-2xl p-6 hover:border-blue-200 hover:shadow-lg transition-all hover:-translate-y-0.5"
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 mb-10">
+              {PRODUCTS.map(p => (
+                <Link key={p.name} href="/apply"
+                  className="group bg-white border border-slate-200 rounded-2xl p-6 hover:border-blue-200 hover:shadow-lg transition-all hover:-translate-y-1"
                 >
-                  <div className="text-2xl mb-3">{p.icon}</div>
-                  <div className="font-display font-bold text-base text-slate-900 mb-1 group-hover:text-blue-700 transition-colors">{p.name}</div>
-                  <p className="text-sm text-slate-500 leading-relaxed mb-3">{p.desc}</p>
-                  <span className="inline-block text-xs font-bold text-blue-600 bg-blue-50 px-2.5 py-1 rounded-full">{p.tag}</span>
+                  <div className="w-12 h-12 bg-blue-50 rounded-xl flex items-center justify-center text-2xl mb-4 group-hover:bg-blue-100 transition-colors">{p.icon}</div>
+                  <h3 className="font-display font-bold text-lg text-slate-900 mb-2">{p.name}</h3>
+                  <p className="text-sm text-slate-500 leading-relaxed mb-4">{p.desc}</p>
+                  <div className="flex items-center justify-between">
+                    <span className="text-sm font-bold text-blue-600">{p.amount}</span>
+                    <span className={`text-xs font-semibold px-2.5 py-1 rounded-full ${p.tagColor}`}>{p.tag}</span>
+                  </div>
                 </Link>
               ))}
             </div>
-            <div className="text-center mt-8">
-              <Link href="/services" className="inline-flex items-center gap-2 text-sm font-semibold text-slate-600 hover:text-slate-900 transition-colors">
-                View all funding products →
+            <div className="rounded-2xl p-7 flex flex-col sm:flex-row items-center justify-between gap-5" style={{ backgroundColor: '#1e3369' }}>
+              <div>
+                <div className="font-display font-bold text-xl text-white mb-1">Not sure which product is right?</div>
+                <p className="text-blue-200 text-sm">Apply once — our engine figures out which lenders and products fit your profile.</p>
+              </div>
+              <Link href="/apply" className="shrink-0 bg-white font-bold text-sm px-6 py-3 rounded-xl hover:bg-blue-50 transition-all whitespace-nowrap" style={{ color: '#1e3369' }}>
+                Let Us Match You →
               </Link>
             </div>
           </div>
         </section>
 
-        {/* ── LENDER NETWORK ────────────────────────────────────── */}
-        <section className="py-16 bg-white px-5">
-          <div className="max-w-4xl mx-auto text-center">
-            <div className="inline-flex items-center gap-2 text-xs font-bold tracking-widest uppercase text-blue-600 mb-3">
-              <span className="w-5 h-px bg-blue-600" />Our Network<span className="w-5 h-px bg-blue-600" />
-            </div>
-            <h2 className="font-display font-extrabold text-3xl text-slate-900 tracking-tight mb-3">
-              50+ lenders compete for your business
-            </h2>
-            <p className="text-slate-500 mb-10 max-w-xl mx-auto">
-              Banks, credit unions, SBA lenders, alternative lenders, and specialist brokers — all in one network, all competing to fund you.
-            </p>
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-5 mb-10">
-              {[
-                { label: 'SBA Lenders', count: '12+' },
-                { label: 'Alt Lenders', count: '20+' },
-                { label: 'Equipment Specialists', count: '8+' },
-                { label: 'Invoice Factors', count: '10+' },
-              ].map(n => (
-                <div key={n.label} className="bg-slate-50 border border-slate-200 rounded-2xl p-5 text-center">
-                  <div className="font-display font-extrabold text-2xl mb-1" style={{ color: '#1e3369' }}>{n.count}</div>
-                  <div className="text-xs text-slate-500 font-medium">{n.label}</div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
         {/* ── REVIEWS ───────────────────────────────────────────── */}
-        <section className="py-20 bg-slate-50 px-5">
-          <div className="max-w-6xl mx-auto">
-            <div className="text-center mb-12">
+        <section id="why-us" className="py-20 bg-white">
+          <div className="max-w-6xl mx-auto px-5">
+            <div className="text-center mb-14">
               <div className="inline-flex items-center gap-2 text-xs font-bold tracking-widest uppercase text-blue-600 mb-3">
-                <span className="w-5 h-px bg-blue-600" />Reviews<span className="w-5 h-px bg-blue-600" />
+                <span className="w-5 h-px bg-blue-600" />Client Stories<span className="w-5 h-px bg-blue-600" />
               </div>
-              <h2 className="font-display font-extrabold text-3xl text-slate-900 tracking-tight mb-2">
-                4.8 stars across 3,200+ reviews
+              <h2 className="font-display font-extrabold text-3xl sm:text-4xl text-slate-900 tracking-tight mb-3">
+                Real businesses. <span className="text-blue-600">Better offers.</span>
               </h2>
-              <p className="text-slate-500">Real businesses, real results.</p>
+              <div className="flex items-center justify-center gap-2 mt-3">
+                <span className="text-yellow-400 text-xl">★★★★★</span>
+                <span className="font-bold text-slate-800">4.8</span>
+                <span className="text-slate-400 text-sm">· 3,200+ verified reviews</span>
+              </div>
             </div>
-            <div className="grid sm:grid-cols-3 gap-5">
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 mb-12">
+              {REVIEWS.map(r => (
+                <div key={r.author} className="bg-slate-50 border border-slate-200 rounded-2xl p-6 hover:shadow-md transition-shadow">
+                  <div className="text-yellow-400 text-sm mb-3">★★★★★</div>
+                  <p className="text-sm text-slate-600 italic leading-relaxed mb-4">&ldquo;{r.text}&rdquo;</p>
+                  <div className="font-semibold text-sm text-slate-800">{r.author}</div>
+                  <div className="text-xs text-slate-400 mt-0.5">{r.biz}</div>
+                </div>
+              ))}
+            </div>
+            <div className="bg-slate-50 border border-slate-200 rounded-2xl px-6 py-5 flex flex-wrap items-center justify-around gap-4">
               {[
-                { name: 'Marcus T.', biz: 'Restaurant Owner, Atlanta', review: 'Applied on a Monday, had three offers by Tuesday afternoon. Took the SBA loan at 6.9% — saved us from a much worse option we were about to accept.', stars: 5 },
-                { name: 'Sarah K.', biz: 'Construction Co., Denver', review: 'The matching engine is no joke. Sent our profile to lenders who actually work with contractors. Funded $400K equipment loan in 48 hours.', stars: 5 },
-                { name: 'David R.', biz: 'Med Spa Owner, Miami', review: "Tried two banks first — both said no. Gateway matched us to a lender who specializes in healthcare. Funded in a week. Couldn't be happier.", stars: 5 },
-              ].map(r => (
-                <div key={r.name} className="bg-white border border-slate-200 rounded-2xl p-6">
-                  <div className="flex items-center gap-0.5 mb-3 text-yellow-400 text-sm">
-                    {'★'.repeat(r.stars)}
+                { icon: '⭐', name: '4.8 Trustpilot Rating', sub: '3,200+ Verified Reviews' },
+                { icon: '✅', name: 'BBB Accredited', sub: 'Standards for Trust' },
+                { icon: '🔒', name: 'Bank-Level Security', sub: '256-bit SSL Encryption' },
+                { icon: '🤝', name: '50+ Lender Partners', sub: 'Vetted & Competing' },
+              ].map(a => (
+                <div key={a.name} className="flex items-center gap-3">
+                  <span className="text-2xl">{a.icon}</span>
+                  <div>
+                    <div className="text-xs font-bold text-slate-800">{a.name}</div>
+                    <div className="text-xs text-slate-400">{a.sub}</div>
                   </div>
-                  <p className="text-sm text-slate-600 leading-relaxed mb-4 italic">&ldquo;{r.review}&rdquo;</p>
-                  <div className="font-bold text-sm text-slate-900">{r.name}</div>
-                  <div className="text-xs text-slate-400">{r.biz}</div>
                 </div>
               ))}
             </div>
           </div>
         </section>
 
-        {/* ── WHY GATEWAY ───────────────────────────────────────── */}
-        <section id="why-us" className="py-20 bg-white px-5">
-          <div className="max-w-5xl mx-auto">
-            <div className="text-center mb-12">
-              <div className="inline-flex items-center gap-2 text-xs font-bold tracking-widest uppercase text-blue-600 mb-3">
-                <span className="w-5 h-px bg-blue-600" />Why Gateway<span className="w-5 h-px bg-blue-600" />
-              </div>
-              <h2 className="font-display font-extrabold text-3xl sm:text-4xl text-slate-900 tracking-tight">
-                The smarter way to find business funding
-              </h2>
-            </div>
-            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
-              {[
-                { icon: '🎯', title: 'Precision matching', desc: 'Our engine analyzes your profile and routes to lenders with the highest probability of approving and funding you.' },
-                { icon: '⚡', title: 'Speed', desc: 'Same-day funding available on select products. Most businesses see offers within hours of applying.' },
-                { icon: '💰', title: 'Competition', desc: 'Multiple lenders compete for your business. You always see the best available offer, not just the first one.' },
-                { icon: '🔒', title: 'No hard credit pull', desc: 'We match you first, check credit later — after you\'ve seen offers and chosen to proceed.' },
-                { icon: '📊', title: 'Full transparency', desc: 'Every offer shows full APR, fees, prepayment terms, and total cost. No surprises at signing.' },
-                { icon: '🤝', title: 'Dedicated specialists', desc: 'A funding specialist guides you through every offer and answers every question — at no cost to you.' },
-              ].map(f => (
-                <div key={f.title} className="bg-slate-50 border border-slate-200 rounded-2xl p-6">
-                  <div className="text-2xl mb-3">{f.icon}</div>
-                  <div className="font-display font-bold text-sm text-slate-900 mb-2">{f.title}</div>
-                  <p className="text-xs text-slate-500 leading-relaxed">{f.desc}</p>
-                </div>
-              ))}
-            </div>
+        {/* ── FINAL CTA ─────────────────────────────────────────── */}
+        <section className="py-20 relative overflow-hidden" style={{ backgroundColor: '#1e3369' }}>
+          <div className="absolute inset-0 pointer-events-none">
+            <div className="absolute top-0 right-0 w-96 h-96 bg-white/5 rounded-full -translate-y-1/2 translate-x-1/2" />
+            <div className="absolute bottom-0 left-0 w-64 h-64 bg-white/5 rounded-full translate-y-1/2 -translate-x-1/2" />
+            <div className="absolute inset-0 opacity-[0.03]" style={{ backgroundImage: 'radial-gradient(circle, white 1px, transparent 1px)', backgroundSize: '28px 28px' }} />
           </div>
-        </section>
-
-        {/* ── APPLY CTA ─────────────────────────────────────────── */}
-        <section className="py-20 px-5" style={{ backgroundColor: '#1e3369' }}>
-          <div className="max-w-3xl mx-auto text-center">
-            <h2 className="font-display font-extrabold text-4xl text-white tracking-tight mb-3">
-              Ready to find your best offer?
+          <div className="relative max-w-3xl mx-auto px-5 text-center">
+            <div className="inline-flex items-center gap-2 bg-white/10 border border-white/20 rounded-full px-3 py-1.5 mb-6">
+              <span className="w-2 h-2 bg-emerald-400 rounded-full animate-pulse" />
+              <span className="text-xs font-semibold text-white">Matching engine active — offers in minutes</span>
+            </div>
+            <h2 className="font-display font-extrabold text-3xl sm:text-4xl lg:text-5xl text-white tracking-tight mb-4">
+              Let lenders compete<br />for your business.
             </h2>
             <p className="text-blue-200 text-lg mb-8">
-              One application. Matched to 50+ lenders. Funded in as little as 24 hours.
+              One free application. Matched to 50+ lenders and brokers. You see every offer, choose the best terms, and get funded in as little as 24 hours.
             </p>
-            <Link
-              href="/apply"
-              className="inline-flex items-center gap-2 bg-white font-bold text-base px-9 py-4 rounded-xl hover:bg-blue-50 transition-all hover:shadow-xl hover:-translate-y-0.5"
-              style={{ color: '#1e3369' }}
-            >
-              Apply Free — 2 Minutes →
+            <Link href="/apply" className="inline-flex items-center gap-2 bg-white font-bold text-lg px-10 py-5 rounded-2xl hover:bg-blue-50 transition-all hover:shadow-2xl hover:-translate-y-1" style={{ color: '#1e3369' }}>
+              Get My Offers — It&apos;s Free →
             </Link>
-            <p className="text-blue-300 text-xs mt-4">No hard credit pull · No commitment · No cost to you</p>
-          </div>
-        </section>
-
-        {/* ── APPLY FORM SECTION ────────────────────────────────── */}
-        <section id="apply" className="py-20 bg-slate-50 px-5">
-          <div className="max-w-2xl mx-auto">
-            <div className="text-center mb-10">
-              <h2 className="font-display font-extrabold text-3xl text-slate-900 tracking-tight mb-2">
-                Start your application
-              </h2>
-              <p className="text-slate-500">2 minutes. No hard credit pull. See your matches instantly.</p>
-            </div>
-            <ApplyForm />
+            <p className="mt-4 text-blue-300/70 text-sm">No hard credit pull · No commitment · Decisions within 24 hours</p>
           </div>
         </section>
 
